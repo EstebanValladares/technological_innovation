@@ -87,6 +87,49 @@ const textInit = ref('La tecnología ha transformado nuestras vidas de manera fu
                 <button>Mas</button>
             </article>
         </section>
+        <section class="infoInit">
+            <article class="infoInit--1">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+                <div class="circle5"></div>
+            </article>
+            <article class="infoInit--2">
+                <h1> {{ title }} </h1>
+                <p> {{ textInit }} </p>
+            </article>
+        </section>
+        <section class="iconsInfo">
+            <section class="iconsInfo--1">
+                    <div>
+                        <i class="fa-solid fa-database"></i>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam sequi consequatur omnis facere cupiditate architecto. Praesentium qui et a, hic quia molestiae</p>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-folder"></i>
+                        <P>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam sequi consequatur omnis facere cupiditate architecto. Praesentium qui et a, hic quia molestiae</P>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-network-wired"></i>
+                        <P>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam sequi consequatur omnis facere cupiditate architecto. Praesentium qui et a, hic quia molestiae</P>
+                    </div>
+            </section>
+            <section class="iconsInfo--2">
+                <div>
+                        <i class="fa-solid fa-database"></i>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam sequi consequatur omnis facere cupiditate architecto. Praesentium qui et a, hic quia molestiae</p>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-folder"></i>
+                        <P>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam sequi consequatur omnis facere cupiditate architecto. Praesentium qui et a, hic quia molestiae</P>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-network-wired"></i>
+                        <P>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam sequi consequatur omnis facere cupiditate architecto. Praesentium qui et a, hic quia molestiae</P>
+                    </div>
+            </section>
+        </section>
     </body>
     <footer>
 
@@ -103,6 +146,7 @@ const textInit = ref('La tecnología ha transformado nuestras vidas de manera fu
     --colorAmarillo3: rgba(255,211, 108, .75);
     --colorAmarillo4: rgba(255,211, 108, .85);
     --colorIconosInicio: #4F8C98;
+    --colorAzulClaro: rgba(79, 140, 152, .66);
 }
 
 /* ESTILOS REUTILIZABLES */
@@ -315,6 +359,117 @@ body{
         }
         .container-card:hover h2, .container-card:hover h3, .container-card:hover p{
             color: var(--colorBlanco);
+        }
+    }
+    /* SEGUNDA INFORMACION CON CIRCULOS FLOTANTES */
+    .infoInit{
+        width: 100%;
+        height: 60vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .infoInit--1{
+            width: 50%;
+            /* CIRCULOS FLOTANTES */
+            .circle1{
+                width: 22%;
+                height: 44%;
+                border-radius: 100%;
+                background-color: var(--colorAmarillo2);
+                position: absolute;
+                top: 200%;
+                left: 20%;
+                z-index: -1;
+            }
+            .circle2{
+                width: 9%;
+                height: 18%;
+                border-radius: 100%;
+                background-color: var(--colorAmarillo2);
+                position: absolute;
+                top: 235%;
+                left: 19%;
+                z-index: -1;
+            }
+            .circle3{
+                width: 7%;
+                height: 14%;
+                border-radius: 100%;
+                background-color: var(--colorAzulClaro);
+                position: absolute;
+                top: 200%;
+                left: 13%;
+                z-index: -1;
+            }
+            .circle4{
+                width: 6%;
+                height: 12%;
+                border-radius: 100%;
+                background-color: var(--colorAzulClaro);
+                position: absolute;
+                top: 220%;
+                left: 40%;
+                z-index: -1;
+            }
+            .circle5{
+                width: 5%;
+                height: 10%;
+                border-radius: 100%;
+                background-color: var(--colorAmarillo4);
+                position: absolute;
+                top: 48%;
+                right: 7%;
+                z-index: -1;
+            }
+        }
+        /* SEGUNDA INFORMACION */
+        .infoInit--2{
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            h1{
+                margin: 10px;
+                font-size: 3rem;
+            }
+            p{
+                margin: 0 10vw;
+                font-size: 1.2rem;
+            }
+        }
+    }
+    /* RECUADRO AZUL CON INFORMACION */
+    .iconsInfo{
+        margin-top: 5vh;
+        width: 100%;
+        height: 40vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: var(--colorIconosInicio);
+        .iconsInfo--1, .iconsInfo--2{
+            width: 50%;
+                div{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                    i{
+                        background-color: var(--colorBlanco);
+                        padding: 25px;
+                        margin: 10px;
+                        border-radius: 50%;
+                        font-size: 1.6rem;
+                    }
+            }
+        }
+        .iconsInfo--1{
+            margin-left: 15vw;
+            margin-right: 3vw;
+        }
+        .iconsInfo--2{
+            margin-right: 15vw;
+            margin-left: 3vw;
         }
     }
 }
