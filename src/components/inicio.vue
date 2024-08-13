@@ -38,11 +38,13 @@ const textInit = ref('La tecnología ha transformado nuestras vidas de manera fu
                 <div class="circle3"></div>
                 <div class="circle4"></div>
                 <div class="circle5"></div>
+                <!-- imagen flotante en circulos -->
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 261.76 226.69"><path d="M161.096.001l-30.225 52.351L100.647.001H-.005l130.877 226.688L261.749.001z" fill="#41b883"/><path d="M161.096.001l-30.225 52.351L100.647.001H52.346l78.526 136.01L209.398.001z" fill="#34495e"/></svg>
                 </div>
             </article>
         </section>
+        <!-- iconos con informacion -->
         <section class="iconsTecnology">
             <article>
                 <i class="fa-solid fa-database"></i>
@@ -61,6 +63,7 @@ const textInit = ref('La tecnología ha transformado nuestras vidas de manera fu
                 <P>WIFI</P>
             </article>
         </section>
+        <!-- targetas dinamicas con animacion de imagen -->
         <section class="cardsDinamic">
             <article class="container-card">
                 <h2>01</h2>
@@ -87,6 +90,7 @@ const textInit = ref('La tecnología ha transformado nuestras vidas de manera fu
                 <button>Mas</button>
             </article>
         </section>
+        <!-- segunda seccion de inicio circulos flotantes con informacion -->
         <section class="infoInit">
             <article class="infoInit--1">
                 <div class="circle1"></div>
@@ -100,7 +104,9 @@ const textInit = ref('La tecnología ha transformado nuestras vidas de manera fu
                 <p> {{ textInit }} </p>
             </article>
         </section>
+        <!-- infromacion en cuadro azul e icnonos -->
         <section class="iconsInfo">
+            <!-- primera mitad del cuadro -->
             <section class="iconsInfo--1">
                     <div>
                         <i class="fa-solid fa-database"></i>
@@ -115,6 +121,7 @@ const textInit = ref('La tecnología ha transformado nuestras vidas de manera fu
                         <P>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam sequi consequatur omnis facere cupiditate architecto. Praesentium qui et a, hic quia molestiae</P>
                     </div>
             </section>
+            <!-- segunda mitad del cuadro -->
             <section class="iconsInfo--2">
                 <div>
                         <i class="fa-solid fa-database"></i>
@@ -130,9 +137,40 @@ const textInit = ref('La tecnología ha transformado nuestras vidas de manera fu
                     </div>
             </section>
         </section>
-    </body>
-    <footer>
+        <!-- informacion en pantalla y 3 imagenes  -->
+        <section class="info-image">
+            <section class="info-image--1">
+                <h3> {{ title }} </h3>
+                <p> {{ textInit }} </p>
+            </section>
+            <section class="info-image--2">
 
+            </section>
+        </section>
+    </body>
+    <!-- footer de la pagina dividida en 3 partes -->
+    <footer>
+        <!-- espacio de la imagen -->
+        <section class="image-footer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 261.76 226.69"><path d="M161.096.001l-30.225 52.351L100.647.001H-.005l130.877 226.688L261.749.001z" fill="#41b883"/><path d="M161.096.001l-30.225 52.351L100.647.001H52.346l78.526 136.01L209.398.001z" fill="#34495e"/></svg>
+        </section>
+        <!-- doble informacion en el footer -->
+        <section class="info-footer">
+            <article>
+                <h3> {{ title }} </h3>
+                <p> {{ textInit }} </p>
+            </article>
+            <article>
+                <h3> {{ title }} </h3>
+                <p> {{ textInit }} </p>
+            </article>
+        </section>
+        <!-- iconos de referencia -->
+        <section class="icon-footer">
+            <i class="fa-brands fa-google"></i>
+            <i class="fa-brands fa-github"></i>
+            <i class="fa-solid fa-gamepad"></i>
+        </section>
     </footer>
 </template>
 
@@ -470,6 +508,66 @@ body{
         .iconsInfo--2{
             margin-right: 15vw;
             margin-left: 3vw;
+        }
+    }
+    /* SECCION DE IMAGENES CON UNA PEQUEÑA GALERIA DE 3 IMAGENES */
+    .info-image{
+        width: 100%;
+        height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* texto en pantalla */
+        .info-image--1{
+            text-align: center;
+            width: 50%;
+            margin: 20vw;
+
+        }
+        /* galeria de 3 imagenes */
+        .info-image--2{
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+footer{
+    background-color: var(--colorAmarillo1);
+    height: 35vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* imagen del footer */
+    .image-footer{
+        width: 25%;
+        svg{
+            max-width: 40%;
+            text-align: center;
+        }
+    }
+    /* informacion del footer */
+    .info-footer{
+        width: 50%;
+        display: flex;
+        padding: 15px;
+        article{
+            width: 50%;
+        }
+    }
+    /* iconos del footer */
+    .icon-footer{
+        width: 25%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        i{
+            font-size: 2rem;
+            margin: 10px;
         }
     }
 }
