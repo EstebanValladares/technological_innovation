@@ -107,6 +107,18 @@ onMounted(() => {
                     <button class="card-button">Orientación al Cliente</button>
                 </article>
             </section>
+            <h2>Ubicación</h2>
+            <section class="container-maps">
+                <article>
+                    <h3>Contactanos</h3>
+                    <p>Si deseas más información sobre nuestros servicios o tienes alguna pregunta, no dudes en contactarnos. Estamos aquí para ayudarte.</p>
+                    <p>Correo: mistix@gmail.com </p>
+                    <p>Teléfono: 222 123 4567</p>
+                </article>
+                <article>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d120689.12731670369!2d-98.27458400268361!3d19.04019120549112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc0bd5ebc7a3b%3A0x48a6461de494ad95!2sHeroica%20Puebla%20de%20Zaragoza%2C%20Pue.!5e0!3m2!1ses-419!2smx!4v1728006141373!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </article>
+            </section>
         </main>
     </div>
 </template>
@@ -311,4 +323,19 @@ h2{
     opacity: 1;
 }
 
+/* estilos de container maps */
+.container-maps{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 2rem;
+    margin: 2rem 6vw;
+    iframe{
+        width: 100%;
+        height: 50vh;
+    }
+    p{
+        font-size: 1.5rem;
+        margin: 1rem 0;
+    }
+}
 </style>

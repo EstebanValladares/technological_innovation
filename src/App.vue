@@ -24,6 +24,9 @@ const homePage = () => {
 const prueba1 = () => {
     router.push('/prueba1');
 };
+const prueba2 = () => {
+    router.push('/prueba2');
+};
 
 /* tiempo de carga del loader */
 onMounted(() => {
@@ -54,6 +57,7 @@ onMounted(() => {
                         <li><button @click="vistaNez">Nez</button></li>
                         <li><button @click="vistaDao">Daxoly</button></li>
                         <li><button @click="prueba1">Prueba</button></li>
+                        <li><button @click="prueba2">Prueba2</button></li>
                     </ul>
                     </li>
                     <li>SERVICIOS</li>

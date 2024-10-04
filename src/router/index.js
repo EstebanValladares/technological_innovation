@@ -5,6 +5,7 @@ import Home from '@/views/home.vue';
 import Daxoly from '@/views/daxoly.vue'
 import conoceMas from '@/views/conoceMas.vue';
 import prueba1 from '@/views/prueba1.vue';
+import prueba2 from '@/views/prueba2.vue';
 const routes = [
     {
         path: '/',
@@ -31,6 +32,11 @@ const routes = [
         path: '/prueba1',
         name:'prueba1',
         component: prueba1
+    },
+    {
+        path: '/prueba2',
+        name:'prueba2',
+        component: prueba2
     }
 
 ];

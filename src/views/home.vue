@@ -267,7 +267,7 @@ main{
     .info-logo{
         height: 70vh;
         width: 40%;
-        background-color: #FFD667;
+        background-color: #8EA05D;
         height: 100%;
         background-image: url('../image/home/Recurso 8SIN FONDO.png');
         background-repeat: repeat;

@@ -1,26 +1,28 @@
-<script setup>
+<script>
 
 </script>
+
 <template>
     <main>
-        <!-- seccion del presentacion, imagen logo y texto -->
+            <!-- seccion del presentacion, imagen logo y texto -->
         <section class="container-logo flex">
             <article>
-                <img src="../image/nez/BeaverBuilder.png" alt="logo empresa">
+                <img src="../image/quetzacloud/quetzacloud.png" alt="logo empresa">
             </article>
             <article>
-                <h1>BLEADER</h1>
-                <p>Con un enfoque proactivo y personalizado, te ayudamos a mantener la tranquilidad en un entorno digital en constante evolución. ¡Tu seguridad es nuestra prioridad!</p>
+                <h1>QUEDZACLOUD</h1>
+                <p>Elevate Your Potential: Unlock Limitless Opportunities and Drive Success with Our Cloud-Based Motivational Solutions</p>
             </article>
         </section>
+
         <!-- segunda seccion de datos y contenido con imagenes -->
-        <h2 class="title-section">Servicio de construcción automático de sistemas e-salud para el manejo de datos y contenidos en la práctica médica</h2>
+        <h2 class="title-section">Comunicacion en su entorno</h2>
         <!-- seccion de cards para datos de la empresa -->
         <section class="flex">
             <article>
                 <div class="card">
                     <div class="content flex">
-                        <img src="../image/nez/nez-0.png" alt="">
+                        <img src="../image/quedzacloud/cloud.png" alt="">
                         <p class="para">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
                         laboriosam at voluptas minus culpa deserunt delectus sapiente
@@ -32,7 +34,7 @@
             <article>
                 <div class="card">
                     <div class="content flex">
-                        <img src="../image/nez/nez-1.png" alt="">
+                        <img src="../image/quedzacloud/db-cloud.png" alt="">
                         <p class="para">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
                         laboriosam at voluptas minus culpa deserunt delectus sapiente
@@ -44,7 +46,19 @@
             <article>
                 <div class="card">
                     <div class="content flex">
-                        <img src="../image/nez/nez-2.png" alt="">
+                        <img src="../image/quedzacloud/ecosystem.png" alt="">
+                        <p class="para">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
+                        laboriosam at voluptas minus culpa deserunt delectus sapiente
+                        inventore pariatur
+                        </p>
+                    </div>
+                </div>
+            </article>
+            <article>
+                <div class="card">
+                    <div class="content flex">
+                        <img src="../image/quedzacloud/multi-cloud.png" alt="">
                         <p class="para">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
                         laboriosam at voluptas minus culpa deserunt delectus sapiente
@@ -54,10 +68,14 @@
                 </div>
             </article>
         </section>
+
+        <!-- espacio que determinara si tiene informacion o es una imagen -->
+        <!-- espacio que determinara si tiene informacion o es una imagen -->
+
         <!-- titulo 3 -->
-        <h2 class="title-section">Sistema de e-salud</h2>
+        <h2 class="title-section">Gran seguridad para la comunidad</h2>
         <!-- seccion de imagenes informativas -->
-        <section class="container-image-info">
+        <!-- <section class="container-image-info">
             <article class="flex">
                 <h3>Maneja y comparte tus servicios de e-salud</h3>
                 <div class="flex">
@@ -70,7 +88,51 @@
                     <img src="../image/nez/sistema-esalud1.png" alt="sistema de salud">
                 </div>
             </article>
+        </section> -->
+
+        <section class="container-image-info">
+            <article class="flex">
+                <div class="card-infoCloud">
+                    <div class="tools">
+                        <div class="circle-cloud">
+                            <span class="red box"></span>
+                            <span class="yellow box"></span>
+                            <span class="green box"></span>
+                        </div>
+                    </div>
+                    <div class="card__content">
+                        <ul>
+                            <li>1.- Acceso global: Usa la plataforma desde cualquier dispositivo con internet.
+                            </li>
+                            <li>2.- Experiencia personalizada: Ajusta las herramientas a tus metas.</li>
+                            <li>3.- Actualizaciones automáticas: Siempre con las últimas mejoras sin esfuerzo.</li>
+                            <li>4.- Colaboración: Comparte y trabaja en equipo de forma motivacional.</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+            <article class="flex">
+                <div class="card-infoCloud">
+                    <div class="tools">
+                        <div class="circle-cloud">
+                            <span class="red box"></span>
+                            <span class="yellow box"></span>
+                            <span class="green box"></span>
+                        </div>
+                    </div>
+                    <div class="card__content">
+                        <ul>
+                            <li>1.- Seguridad: Tus datos protegidos con encriptación avanzada.
+                            </li>
+                            <li>2.- Escalabilidad: Crece con la plataforma según tus necesidades.</li>
+                            <li>3.- Análisis inmediato: Revisa tu progreso en tiempo real.</li>
+                            <li>4.- Soporte continuo: Ayuda disponible 24/7 para cualquier duda.</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
         </section>
+
     </main>
 </template>
 
@@ -84,7 +146,7 @@
 
 /* seccion del main, logo y titulo */
 article{
-    margin: 1rem;
+    padding: 1rem;
 }
 .container-logo{
     height: 100vh;
@@ -94,6 +156,9 @@ article{
     background-image: url('../image/1.jpg');
     background-size: cover;
     background-position: center;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     flex-direction: column;
 
     article{
@@ -108,13 +173,14 @@ article{
     p{
         color: #ffffff;
         font-size: 1.5rem;
-        margin: 1rem 10vw;
+        margin: 1rem 8vw;
     }
     img{
         max-width: 25%;
         border-radius: 50%;
     }
 }
+
 
 /* seccion de la segunda parte de la pagina */
 
@@ -162,7 +228,7 @@ img{
     bottom: 0;
     width: 5px;
     height: 100%;
-    background: linear-gradient(-45deg, #FFBD88 0%, #91B8FD 100% );
+    background: linear-gradient(-45deg, #FFB66B 0%, #6CCBC0 100% );
     z-index: -1;
     transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
 }
@@ -177,6 +243,7 @@ img{
     box-shadow: none;
 }
 
+
 /* seccion de estilos del contenido de las imagenes con informacion */
 .container-image-info{
     width: auto;
@@ -185,7 +252,6 @@ img{
     align-items: center;
     article{
         width: 50%;
-        height: 60vh;
         flex-direction: column;
     }
     div{
@@ -211,78 +277,45 @@ img{
         background-color: #ffffff;
     }
 }
-/* From Uiverse.io by javierBarroso */ 
-.card-data {
-  width: 30vw;
-  height: 60vh;
-  margin: 0 auto;
-  background-color: #f4f4f3;
-  border-radius: 8px;
-  z-index: 1;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
 
-.card-data::after {
-  position: absolute;
-  content: '';
-  background-color: #454a50;
-  width: 50px;
-  height: 100px;
-  z-index: -1;
-  border-radius: 8px;
+/* seccion de cards de informacion de la empresa, de la nuble */
+.card-infoCloud {
+ width: 40vw;
+ margin: 0 auto;
+ background-color: #011522;
+ border-radius: 8px;
+ z-index: 1;
 }
-
+.circle-cloud{
+    display: flex;
+}
 .tools {
-  display: flex;
-  align-items: center;
-  padding: 9px;
-  border-radius: 8px;
-  background: #454a50;
-  margin-top: -2px;
+ display: flex;
+ padding: 9px;
 }
 
-.circle {
-  padding: 0 4px;
-}
-
-.card__content {
-  height: 100%;
-  margin: 0px;
-  border-radius: 8px;
-  background: #f4f4f3;
-  padding: 10px;
-}
-
-.title-data {
-  font-size: 20px;
-}
-
-.content-data {
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-.box {
-  display: inline-block;
-  align-items: center;
-  width: 10px;
-  height: 10px;
-  padding: 1px;
-  border-radius: 50%;
+.box{
+ display: inline-block;
+ width: 10px;
+ height: 10px;
+ padding: 1px;
+ margin: 0 5px;
+ border-radius: 50%;
 }
 
 .red {
-  background-color: #ff605c;
+ background-color: #ff605c;
 }
 
 .yellow {
-  background-color: #ffbd44;
+ background-color: #ffbd44;
 }
 
 .green {
-  background-color: #00ca4e;
+ background-color: #00ca4e;
 }
-
+li{
+    color: #ffffff;
+    margin: 10px 10px;
+}
 </style>
