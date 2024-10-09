@@ -1,10 +1,8 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
-import Loading from './components/loader.vue';
 
 const router = useRouter();
-const isLoading = ref(true);
 
 /* rutas de las paginas */
 const vistaNez = () => {
@@ -35,35 +33,64 @@ onMounted(() => {
     }, 1000);
 });
 
+/* despliegue de la barra de navegacion de telefono */
+const openBar = ref(false);
+
+function openOptions() {
+    openBar.value = !openBar.value;
+}
+
 </script>
 
 <template>
-    <!-- seccion de carga del loader -->
-    <div v-if="isLoading">
-        <Loading></Loading>
-    </div>
-    <div v-else>
         <main>
-            <nav>
+            <!-- barra de navegacion en escritorio -->
+            <nav class="navDesktop">
                 <div class="navBar flex">
-                <ul>
-                    <li>
-                    <img src="./image/appVue/simbolo4.png" alt="" class="logo" @click="homePage">
-                    </li>
-                </ul>
-                <ul>
-                    <li class="dropdown">INICIO
-                    <ul class="dropdown-content">
-                        <li><button @click="vistaNez">Nez</button></li>
-                        <li><button @click="vistaDao">Daxoly</button></li>
-                        <li><button @click="prueba1">Prueba</button></li>
-                        <li><button @click="prueba2">Prueba2</button></li>
+                    <ul>
+                        <li>
+                            <img src="./image/appVue/simbolo4.png" alt="" class="logo" @click="homePage">
+                        </li>
                     </ul>
-                    </li>
-                    <li>SERVICIOS</li>
-                    <li @click="informacion">INFORMACION</li>
-                </ul>
+                    <ul :class="{ 'elements-movil':true, 'open': openElementMovil }">
+                        <li class="dropdown">INICIO
+                        <ul class="dropdown-content">
+                            <li><button @click="vistaNez">Nez</button></li>
+                            <li><button @click="vistaDao">Daxoly</button></li>
+                            <li><button @click="prueba1">Prueba</button></li>
+                            <li><button @click="prueba2">Prueba2</button></li>
+                        </ul>
+                        </li>
+                        <li>SERVICIOS</li>
+                        <li @click="informacion">INFORMACION</li>
+                    </ul>
                 </div>
+            </nav>
+            <!-- barra de navegacion en movil -->
+            <nav class="navMobil">
+                    <ul class="icons-mobil">
+                        <li>
+                            <img src="./image/appVue/simbolo4.png" alt="" class="logo1" @click="homePage">
+                        </li>
+                        <li class="iconMobil">
+                            <img src="../src/image/icons/navbarmovil.webp" alt="icono navegacion" class="nav1"
+                            @click="openOptions">
+                        </li>
+                    </ul>
+                    <ul class="elements-movil">
+                        <div v-if="openBar">
+                            <li class="">INICIO
+                                <ul class="">
+                                    <li><button @click="vistaNez">Nez</button></li>
+                                    <li><button @click="vistaDao">Daxoly</button></li>
+                                    <li><button @click="prueba1">Prueba</button></li>
+                                    <li><button @click="prueba2">Prueba2</button></li>
+                                </ul>
+                            </li>
+                            <li>SERVICIOS</li>
+                            <li @click="informacion">INFORMACION</li>
+                        </div>
+                    </ul>
             </nav>
         </main>
     <router-view></router-view>
@@ -83,14 +110,14 @@ onMounted(() => {
             <i class="fa-solid fa-gamepad"></i>
         </section>
     </footer>
-
-    </div>
 </template>
 
 <style scoped>
 *{
     font-family: sans-serif;
 }
+
+/* estilos reutilizables */
 /* estilos reutilizables */
 .flex{
     display: flex;
@@ -98,13 +125,130 @@ onMounted(() => {
     align-items: center
 }
 
-/* seccion de la barra de navegacion */
-nav{
-    display: flex;
-    justify-content: center;
+/* cancelacion de estilos de barra de navegacion escritorio */
+/* cancelacion de estilos de barra de navegacion escritorio */
+.navDesktop{
+    display: none;
 }
 
-/* barra de navegacion, secciones anidadas */
+/* seccion de la barra de navegacion */
+/* seccion de la barra de navegacion */
+.navMobil{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+
+    .icons-mobil{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background-color: #fff;
+        border-bottom: 1px solid #000;
+        .iconMobil{
+            cursor: pointer;
+        }
+        .logo1{
+            width: 2.5rem;
+        }
+        .nav1{
+            width: 4rem;
+        }
+        li{
+            cursor: pointer;
+            list-style: none;
+        }
+    }
+
+    .elements-movil{
+        width: 100%;
+        background-color: #fff;
+        text-align: center;
+        li{
+            width: 100%;
+            padding: 1rem;
+            transition: 0.5s;
+        }
+        li:hover{
+            background-color: #8EA05D;
+            color: #fff;
+            transition: 0.5s;
+        }
+        ul{
+            display: none;
+        }
+    }
+}
+
+
+/* estilos del footer */
+/* estilos del footer */
+.footer{
+    background-color: #000;
+    color: #fff;
+    padding: 1rem 2rem;
+    flex-direction: column;
+    img{
+        max-width: 20%;
+        height: auto;
+    }
+    .iconsFooter{
+        margin: 1rem 0;
+        width: 30%;
+        text-align: center;
+        i{
+            font-size: 2rem;
+            margin: 0 1rem;
+            color: #fff;
+            transition: 0.5s;
+        }
+        i:hover{
+            color: #8EA05D;
+            transition: 0.5s;
+        }
+    }
+    .image-footer{
+        margin: 1rem 0;
+        text-align: center;
+        display: flex;
+        align-items: center;
+    }
+    .info-footer{
+        text-align: center;
+        margin: 0 1rem;
+        flex-direction: column;
+    }
+}
+
+
+/* estilos responsivos */
+/* estilos responsivos */
+/* estilos responsivos */
+
+@media (min-width:720px){
+/* estilos reutilizables */
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+/* cancelacion de estilos de barra de navegacion movil */
+/* cancelacion de estilos de barra de navegacion movil */
+.navMobil{
+    display: none;
+}
+/* activacion estilos de desktop */
+/* activacion estilos de desktop */
+.navDesktop{
+    display: block;
+}
+
+/* barra de navegacion escritorio, secciones anidadas */
+/* barra de navegacion escritorio, secciones anidadas */
 .navBar{
     text-align: center;
     width: 100%;
@@ -133,6 +277,7 @@ nav{
             }
         }
         /* Estilo básico para el dropdown */
+        /* Estilo básico para el dropdown */
         .dropdown-content {
         display: none;
         position: absolute;
@@ -159,11 +304,13 @@ nav{
             width: 100%;
         }
         /* Mostrar dropdown al pasar el cursor */
+        /* Mostrar dropdown al pasar el cursor */
         .dropdown:hover .dropdown-content {
         display: block;
         }
     }
 }
+/* estilos del footer */
 /* estilos del footer */
 .footer{
     background-color: #000;
@@ -199,5 +346,7 @@ nav{
         margin: 0 2rem;
         flex-direction: column;
     }
+}
+    
 }
 </style>

@@ -23,7 +23,7 @@ onMounted(() => {
                     <img src="../image/nosotros/Recurso 8SIN FONDO.png" alt="logo empresa">
                 </article>
                 <article class="text-init">
-                    <h1>¡¡CONOCE UN POCO MAS SOBRE NOOSTROS!!</h1>
+                    <h1>¡¡CONOCE UN POCO MAS SOBRE NOSOTROS!!</h1>
                 </article>
             </section>
             <!-- seccion de la informacion de la mision de la empresa -->

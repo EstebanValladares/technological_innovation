@@ -31,4 +31,8 @@ npm run build
 
 ```sh
 npm install vue-router
+
 ```
+### CORS en python
+
+pip install flask-cors

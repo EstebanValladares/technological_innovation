@@ -1,5 +1,5 @@
-<script>
-
+<script setup>
+    
 </script>
 
 <template>
@@ -22,7 +22,7 @@
             <article>
                 <div class="card">
                     <div class="content flex">
-                        <img src="../image/quedzacloud/cloud.png" alt="">
+                        <img src="../image/quetzacloud/db-cloud.png" alt="">
                         <p class="para">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
                         laboriosam at voluptas minus culpa deserunt delectus sapiente
@@ -34,7 +34,7 @@
             <article>
                 <div class="card">
                     <div class="content flex">
-                        <img src="../image/quedzacloud/db-cloud.png" alt="">
+                        <img src="../image/quetzacloud/ecosystem.png" alt="">
                         <p class="para">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
                         laboriosam at voluptas minus culpa deserunt delectus sapiente
@@ -46,7 +46,7 @@
             <article>
                 <div class="card">
                     <div class="content flex">
-                        <img src="../image/quedzacloud/ecosystem.png" alt="">
+                        <img src="../image/quetzacloud/multi-cloud.png" alt="">
                         <p class="para">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
                         laboriosam at voluptas minus culpa deserunt delectus sapiente
@@ -58,7 +58,7 @@
             <article>
                 <div class="card">
                     <div class="content flex">
-                        <img src="../image/quedzacloud/multi-cloud.png" alt="">
+                        <img src="../image/quetzacloud/cloud.png" alt="">
                         <p class="para">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
                         laboriosam at voluptas minus culpa deserunt delectus sapiente

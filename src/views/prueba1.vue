@@ -1,5 +1,12 @@
 <script setup>
-
+    const url = 'http://127.0.0.1:5000/nez.vue'
+    const api =(url)=>{
+        fetch(url)
+        .then(responde => responde.json())
+        .then(data => console.log(data[1]))
+        .catch(error => console.log(error))
+    };
+    api(url);
 </script>
 <template>
     <main>
@@ -16,7 +23,7 @@
         <!-- segunda seccion de datos y contenido con imagenes -->
         <h2 class="title-section">Servicio de construcción automático de sistemas e-salud para el manejo de datos y contenidos en la práctica médica</h2>
         <!-- seccion de cards para datos de la empresa -->
-        <section class="flex">
+        <section class="flex container-cadsDinamic">
             <article>
                 <div class="card">
                     <div class="content flex">
@@ -283,6 +290,63 @@ img{
 
 .green {
   background-color: #00ca4e;
+}
+
+/* SECCION DE ESTILOS MOVIL */
+/* SECCION DE ESTILOS MOVIL */
+/* SECCION DE ESTILOS MOVIL */
+
+@media (max-width: 768px) {
+    .container-logo{
+        h1{
+            font-size: 2rem;
+        }
+        p{
+            font-size: 1rem;
+        }
+        img{
+            max-width: 70%;
+        }
+    }
+
+    /* segunda seccion de la pagina(movile) */
+    .title-section{
+        font-size: 1.2rem;
+    }
+    .container-cadsDinamic{
+        flex-direction: column;
+        article{
+            width: 60%;
+            height: 40vh;
+            margin: 1rem;
+        }
+        .card{
+            width: 100%;
+            height: 100%;   
+        }
+        .para{
+            font-size: 1rem;
+        }
+        
+    }
+
+    /* seccion de imagenes informativas (movil)*/
+    .container-image-info{
+        flex-direction: column;
+        article{
+            width: 80%;
+            height: auto;
+        }
+        div{
+            width: 100%;
+        }
+        img{
+            max-width: 100%;
+        }
+        h3{
+            text-align: center;
+        }
+    }
 }
 
 </style>
