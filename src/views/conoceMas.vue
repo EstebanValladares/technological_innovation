@@ -135,10 +135,9 @@ onMounted(() => {
 }
 h2{
     text-align: center;
-    font-size: 3rem;
+    font-size: 2rem;
     margin: 5rem 0;
 }
-/* contenido de iniciom imagen de presentacion */
 .image-init{
     height: 100vh;
     width: 100%;
@@ -147,40 +146,48 @@ h2{
     background-position: center;
     background-color: rgba(0, 0, 0, 0.9);
     background-blend-mode: multiply;
+    flex-direction: column;
+    text-align: center;
     .image-log{
-        width: 30%;
-        text-align: right;
+        width: 40vw;
+        height: 40vh;
+        img{
+            max-width: 50%;
+        }
     }
     .text-init{
-        width: 70%;
-        text-align: left;
+        text-align: center;
+        width: 100%;
         margin: 0 5rem;
     }
-    /* imagen de la empresa en el inicio */
+    /* imagen de la empresa en el inicio movil*/
+    /* imagen de la empresa en el inicio movil*/
     img{
         max-width: 40%;
     }
-    /* texto de presentacion */
+    /* texto de presentacion movil*/
+    /* texto de presentacion movil*/
     h1{
         color: white;
-        font-size: 4rem;
+        font-size: 2rem;
     }
 }
-/* texto de mision */
+/* texto de mision movil*/
+/* texto de mision movil*/
 .mission-text{
-    text-align: center;
-    font-size: 3rem;
-    margin: 2rem 0;
+        text-align: center;
+        font-size: 2rem;
+        margin: 2rem 0;
 }
-/* seccion de la mision de la empresa */
+/* seccion de la mision de la empresa movil*/
+/* seccion de la mision de la empresa movil*/
 .mission{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 2rem 4vw;
+    flex-direction: column;
     article{
         text-align: center;
-        width: 50%;
         padding: 0 2rem;
     }
     img{
@@ -188,12 +195,12 @@ h2{
         max-width: 50%;
     }
     p{
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         text-align: justify;
     }
 }
-
-/* animacion de card de mision */
+/* animacion de card de mision movil*/
+/* animacion de card de mision movil*/
 .card p{
     font-size: 1.4rem;
     color: #333;
@@ -214,11 +221,11 @@ h2{
     overflow: hidden;
     top: 0;
     right: 0;
-    background-color: #FFD667;
+    background-color: #4f9c53;
     border-radius: 0 4px 0 32px;
 }
 
-.go-arrow {
+go-arrow {
     margin-top: -4px;
     margin-right: -4px;
     color: #fff;
@@ -242,7 +249,7 @@ h2{
     z-index: -1;
     top: -10%;
     right: -10%;
-    background: #c7b072c9;
+    background: #6ea760c9;
     height: 15%;
     width: 15%;
     border-radius: 32px;
@@ -265,15 +272,16 @@ h2{
     color: #fff;
 }
 
-/* seccion de estilos de los valores */
+/* seccion de estilos de los valores movil/*
+/* seccion de estilos de los valores movil*/
 .container-cards-vaL{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
-    margin: 2rem 6vw;
+
 }
 .card-v {
-    width: 20vw;
+    width: 80vw;
     height: 25vh;
     border-radius: 20px;
     background: #f5f5f5;
@@ -309,7 +317,7 @@ h2{
 }
 
 .text-body {
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 /*Hover*/
@@ -323,7 +331,8 @@ h2{
     opacity: 1;
 }
 
-/* estilos de container maps */
+/* estilos de container maps movil*/
+/* estilos de container maps movil*/
 .container-maps{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -334,8 +343,226 @@ h2{
         height: 50vh;
     }
     p{
-        font-size: 1.5rem;
+        font-size: 1rem;
         margin: 1rem 0;
     }
 }
+
+/* estilos escritorio */
+/* estilos escritorio */
+
+@media (min-width:720px){
+    h2{
+    text-align: center;
+    font-size: 3rem;
+    margin: 5rem 0;
+    }
+    /* contenido de iniciom imagen de presentacion */
+    .image-init{
+        height: 100vh;
+        width: 100%;
+        background-image: url('../image/nosotros/somos-imagen.webp');
+        background-size: cover;
+        background-position: center;
+        background-color: rgba(0, 0, 0, 0.9);
+        background-blend-mode: multiply;
+        flex-direction: row;
+        .image-log{
+            width: 30%;
+            text-align: right;
+            img{
+                max-width: 40%;
+            }
+        }
+        .text-init{
+            width: 70%;
+            text-align: left;
+        }
+        /* imagen de la empresa en el inicio */
+        img{
+            max-width: 40%;
+        }
+        /* texto de presentacion */
+        h1{
+            color: white;
+            font-size: 4rem;
+        }
+    }
+    /* texto de mision */
+    .mission-text{
+        text-align: center;
+        font-size: 3rem;
+        margin: 2rem 0;
+    }
+    /* seccion de la mision de la empresa */
+    .mission{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        margin: 2rem 4vw;
+        article{
+            text-align: center;
+            width: 50%;
+            padding: 0 2rem;
+        }
+        img{
+            text-align: left;
+            max-width: 50%;
+        }
+        p{
+            font-size: 1.5rem;
+            text-align: justify;
+        }
+    }
+
+    /* animacion de card de mision */
+    .card p{
+        font-size: 1.4rem;
+        color: #333;
+        transition: all 0.3s ease-out;
+    }
+
+    .card p.small {
+        font-size: 1.4rem;
+    }
+
+    .go-corner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        width: 42px;
+        height: 42px;
+        overflow: hidden;
+        top: 0;
+        right: 0;
+        background-color: #4f9c53;
+        border-radius: 0 4px 0 32px;
+    }
+
+    .go-arrow {
+        margin-top: -4px;
+        margin-right: -4px;
+        color: #fff;
+        font-family: courier, sans;
+    }
+
+    .card1 {
+        display: block;
+        position: relative;
+        background-color: #ffffff;
+        border-radius: 4px;
+        padding: 32px 24px;
+        text-decoration: none;
+        z-index: 0;
+        overflow: hidden;
+    }
+
+    .card1:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: -10%;
+        right: -10%;
+        background: #6ea760c9;
+        height: 15%;
+        width: 15%;
+        border-radius: 32px;
+        transform: scale(1);
+        transform-origin: 50% 50%;
+        transition: transform 0.25s ease-out;
+    }
+
+    .card1:hover:before {
+        transform: scale(21);
+    }
+
+    .card1:hover p {
+        transition: all 0.3s ease-out;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .card1:hover h3 {
+        transition: all 0.3s ease-out;
+        color: #fff;
+    }
+
+    /* seccion de estilos de los valores */
+    .container-cards-vaL{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 2rem;
+        margin: 2rem 6vw;
+    }
+    .card-v {
+        width: 20vw;
+        height: 25vh;
+        border-radius: 20px;
+        background: #f5f5f5;
+        position: relative;
+        padding: 1.8rem;
+        border: 2px solid #c3c6ce;
+        transition: 0.5s ease-out;
+        overflow: visible;
+    }
+
+    .card-details {
+        color: black;
+        height: 100%;
+        gap: .5em;
+        display: grid;
+        place-content: center;
+    }
+
+    .card-button {
+        transform: translate(-50%, 125%);
+        width: 60%;
+        border-radius: 1rem;
+        border: none;
+        background-color: #8EA05D;
+        color: #fff;
+        font-size: 1rem;
+        padding: .5rem 1rem;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        opacity: 0;
+        transition: 0.3s ease-out;
+    }
+
+    .text-body {
+        font-size: 1.2rem;
+    }
+
+    /*Hover*/
+    .card-v:hover {
+        border-color: #8EA05D;
+        box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    .card-v:hover .card-button {
+        transform: translate(-50%, 50%);
+        opacity: 1;
+    }
+
+    /* estilos de container maps */
+    .container-maps{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 2rem;
+        margin: 2rem 6vw;
+        iframe{
+            width: 100%;
+            height: 50vh;
+        }
+        p{
+            font-size: 1.5rem;
+            margin: 1rem 0;
+        }
+    }
+
+}
+
+
 </style>

@@ -5,13 +5,6 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 /* rutas de las paginas */
-const vistaNez = () => {
-    router.push('/nez');
-};
-
-const vistaDao = () => {
-    router.push('/daoxoly');
-};
 
 const informacion = () => {
     router.push('/conoceMas');
@@ -39,6 +32,11 @@ const openBar = ref(false);
 function openOptions() {
     openBar.value = !openBar.value;
 }
+const openBar2 = ref(false);
+
+function openOptions2() {
+    openBar2.value = !openBar2.value;
+}
 
 </script>
 
@@ -55,10 +53,8 @@ function openOptions() {
                     <ul :class="{ 'elements-movil':true, 'open': openElementMovil }">
                         <li class="dropdown">INICIO
                         <ul class="dropdown-content">
-                            <li><button @click="vistaNez">Nez</button></li>
-                            <li><button @click="vistaDao">Daxoly</button></li>
-                            <li><button @click="prueba1">Prueba</button></li>
-                            <li><button @click="prueba2">Prueba2</button></li>
+                            <li><button @click="prueba1">Bleader</button></li>
+                            <li><button @click="prueba2">Quetzacloud</button></li>
                         </ul>
                         </li>
                         <li>SERVICIOS</li>
@@ -79,13 +75,11 @@ function openOptions() {
                     </ul>
                     <ul class="elements-movil">
                         <div v-if="openBar">
-                            <li class="">INICIO
-                                <ul class="">
-                                    <li><button @click="vistaNez">Nez</button></li>
-                                    <li><button @click="vistaDao">Daxoly</button></li>
-                                    <li><button @click="prueba1">Prueba</button></li>
-                                    <li><button @click="prueba2">Prueba2</button></li>
-                                </ul>
+                            <li @click="openOptions2">INICIO
+                                <div class="optionsMovil" v-if="openBar2">
+                                    <li><button @click="prueba1">Bleader</button></li>
+                                    <li><button @click="prueba2">Quetzacloud</button></li>
+                                </div>
                             </li>
                             <li>SERVICIOS</li>
                             <li @click="informacion">INFORMACION</li>
@@ -179,6 +173,25 @@ function openOptions() {
         }
         ul{
             display: none;
+        }
+        .optionsMovil{
+            li{
+                width: 100%;
+                list-style: none;
+            }
+            li:hover{
+                color: #fff;
+                transition: 0.5s;
+            }
+            button{
+                width: 100%;
+                padding: 1rem;
+                text-align: center;
+                border: none;
+                color: #000;
+                font-size: 1rem;
+                cursor: pointer;
+            }
         }
     }
 }

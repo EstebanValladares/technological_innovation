@@ -18,7 +18,7 @@
         <!-- segunda seccion de datos y contenido con imagenes -->
         <h2 class="title-section">Comunicacion en su entorno</h2>
         <!-- seccion de cards para datos de la empresa -->
-        <section class="flex">
+        <section class="flex container-cadsDinamic">
             <article>
                 <div class="card">
                     <div class="content flex">
@@ -145,8 +145,9 @@
 }
 
 /* seccion del main, logo y titulo */
+/* seccion del main, logo y titulo */
 article{
-    padding: 1rem;
+    margin: 1rem;
 }
 .container-logo{
     height: 100vh;
@@ -156,9 +157,6 @@ article{
     background-image: url('../image/1.jpg');
     background-size: cover;
     background-position: center;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
     flex-direction: column;
 
     article{
@@ -173,7 +171,7 @@ article{
     p{
         color: #ffffff;
         font-size: 1.5rem;
-        margin: 1rem 8vw;
+        margin: 1rem 10vw;
     }
     img{
         max-width: 25%;
@@ -181,7 +179,7 @@ article{
     }
 }
 
-
+/* seccion de la segunda parte de la pagina */
 /* seccion de la segunda parte de la pagina */
 
 .title-section{
@@ -228,7 +226,7 @@ img{
     bottom: 0;
     width: 5px;
     height: 100%;
-    background: linear-gradient(-45deg, #FFB66B 0%, #6CCBC0 100% );
+    background: linear-gradient(-45deg, #FFBD88 0%, #91B8FD 100% );
     z-index: -1;
     transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
 }
@@ -243,7 +241,7 @@ img{
     box-shadow: none;
 }
 
-
+/* seccion de estilos del contenido de las imagenes con informacion */
 /* seccion de estilos del contenido de las imagenes con informacion */
 .container-image-info{
     width: auto;
@@ -266,6 +264,7 @@ img{
 }
 
 /* seccion de cards de datos generados, informacion */
+/* seccion de cards de datos generados, informacion */
 .container-dataGenerations{
     display: flex;
     justify-content: center;
@@ -279,43 +278,85 @@ img{
 }
 
 /* seccion de cards de informacion de la empresa, de la nuble */
+/* seccion de cards de informacion de la empresa, de la nuble */
 .card-infoCloud {
- width: 40vw;
- margin: 0 auto;
- background-color: #011522;
- border-radius: 8px;
- z-index: 1;
+    width: 40vw;
+    margin: 0 auto;
+    background-color: #011522;
+    border-radius: 8px;
+    z-index: 1;
 }
 .circle-cloud{
     display: flex;
 }
 .tools {
- display: flex;
- padding: 9px;
+    display: flex;
+    padding: 9px;
 }
 
 .box{
- display: inline-block;
- width: 10px;
- height: 10px;
- padding: 1px;
- margin: 0 5px;
- border-radius: 50%;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    padding: 1px;
+    margin: 0 5px;
+    border-radius: 50%;
 }
 
 .red {
- background-color: #ff605c;
+    background-color: #ff605c;
 }
 
 .yellow {
- background-color: #ffbd44;
+    background-color: #ffbd44;
 }
 
 .green {
- background-color: #00ca4e;
+    background-color: #00ca4e;
 }
 li{
     color: #ffffff;
     margin: 10px 10px;
+}
+@media (max-width: 768px){
+    .container-logo{
+        h1{
+            font-size: 2rem;
+        }
+        p{
+            font-size: 1rem;
+        }
+        img{
+            max-width: 70%;
+        }
+    }
+
+    /* segunda seccion de la pagina(movile) */
+    /* segunda seccion de la pagina(movile) */
+    .title-section{
+        font-size: 1.2rem;
+    }
+    .container-cadsDinamic{
+        flex-direction: column;
+        article{
+            width: 60%;
+            height: 40vh;
+            margin: 1rem;
+        }
+        .card{
+            width: 100%;
+            height: 100%;   
+        }
+        .para{
+            font-size: 1rem;
+        }
+        
+    }
+    /* seccion de texto informativos (movil)*/
+    /* seccion de texto informativos (movil)*/
+    .container-image-info{
+        flex-direction: column;
+        
+    }
 }
 </style>

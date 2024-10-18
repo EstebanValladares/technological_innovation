@@ -20,6 +20,7 @@
                 <p>Con un enfoque proactivo y personalizado, te ayudamos a mantener la tranquilidad en un entorno digital en constante evolución. ¡Tu seguridad es nuestra prioridad!</p>
             </article>
         </section>
+        
         <!-- segunda seccion de datos y contenido con imagenes -->
         <h2 class="title-section">Servicio de construcción automático de sistemas e-salud para el manejo de datos y contenidos en la práctica médica</h2>
         <!-- seccion de cards para datos de la empresa -->
@@ -83,12 +84,14 @@
 
 <style scoped>
 /* estilos reutilizables */
+/* estilos reutilizables */
 .flex{
     display: flex;
     justify-content: center;
     align-items: center
 }
 
+/* seccion del main, logo y titulo */
 /* seccion del main, logo y titulo */
 article{
     margin: 1rem;
@@ -123,6 +126,7 @@ article{
     }
 }
 
+/* seccion de la segunda parte de la pagina */
 /* seccion de la segunda parte de la pagina */
 
 .title-section{
@@ -185,6 +189,7 @@ img{
 }
 
 /* seccion de estilos del contenido de las imagenes con informacion */
+/* seccion de estilos del contenido de las imagenes con informacion */
 .container-image-info{
     width: auto;
     display: flex;
@@ -207,6 +212,7 @@ img{
 }
 
 /* seccion de cards de datos generados, informacion */
+/* seccion de cards de datos generados, informacion */
 .container-dataGenerations{
     display: flex;
     justify-content: center;
@@ -218,6 +224,7 @@ img{
         background-color: #ffffff;
     }
 }
+/* From Uiverse.io by javierBarroso */ 
 /* From Uiverse.io by javierBarroso */ 
 .card-data {
   width: 30vw;
@@ -310,6 +317,7 @@ img{
     }
 
     /* segunda seccion de la pagina(movile) */
+    /* segunda seccion de la pagina(movile) */
     .title-section{
         font-size: 1.2rem;
     }
@@ -330,6 +338,7 @@ img{
         
     }
 
+    /* seccion de imagenes informativas (movil)*/
     /* seccion de imagenes informativas (movil)*/
     .container-image-info{
         flex-direction: column;
