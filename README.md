@@ -16,6 +16,12 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 npm install
 ```
 
+### instalation node_modules
+
+```sh
+npm init -y
+
+```
 ### Compile and Hot-Reload for Development
 
 ```sh
@@ -33,6 +39,15 @@ npm run build
 npm install vue-router
 
 ```
-### CORS en python
+### CORS python
 
+```sh
 pip install flask-cors
+
+```
+### server python
+
+```sh
+python app
+
+```

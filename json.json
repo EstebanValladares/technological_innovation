@@ -1,0 +1,86 @@
+{
+    "bleader":[
+        {
+            "home":{
+                "img":{
+                    "src":"www.example.com",
+                    "alt":"logo empresa"
+                },
+                "text-home":{
+                    "title":"BLEADER",
+                    "text":"Con un enfoque proactivo y personalizado, te ayudamos a mantener la tranquilidad en un entorno digital en constante evolución. ¡Tu seguridad es nuestra prioridad!"
+                }
+            },
+            "cards":[
+                {
+                    "src":"www.example.com",
+                    "description":"Lorem ipsum"
+                },
+                {
+                    "src":"www.example.com",
+                    "description":"Lorem ipsum"
+                },
+                {
+                    "src":"www.example.com",
+                    "description":"Lorem ipsum"
+                }
+            ],
+            "information":[
+                {
+                    "type":"Maneja y comparte tus servicios de e-salud",
+                    "src":"www.example.com"
+                },
+                {
+                    "type":"Maneja y comparte tus servicios de e-salud",
+                    "src":"www.example.com"
+                }
+            ]
+        }
+    ],
+    "quedzacloud":[
+        {
+            "home":{
+                "img":{
+                    "src":"www.example.com",
+                    "alt":"logo empresa"
+                },
+                "text-home":{
+                    "title":"QUEDZACLOUD",
+                    "text":"Elevate Your Potential: Unlock Limitless Opportunities and Drive Success with Our Cloud-Based Motivational Solutions"
+                }
+            },
+            "cards":[
+                {
+                    "src":"www.example.com",
+                    "description":"Lorem ipsum"
+                },
+                {
+                    "src":"www.example.com",
+                    "description":"Lorem ipsum"
+                },
+                {
+                    "src":"www.example.com",
+                    "description":"Lorem ipsum"
+                },
+                {
+                    "src":"www.example.com",
+                    "description":"Lorem ipsum"
+                }
+            ],
+            "information":[
+                {
+                    "description1":"Maneja y comparte tus servicios de e-salud",
+                    "description2":"Maneja y comparte tus servicios de e-salud",
+                    "description3":"Maneja y comparte tus servicios de e-salud",
+                    "description4":"Maneja y comparte tus servicios de e-salud"
+                },
+                {
+                    "description1":"Maneja y comparte tus servicios de e-salud",
+                    "description2":"Maneja y comparte tus servicios de e-salud",
+                    "description3":"Maneja y comparte tus servicios de e-salud",
+                    "description4":"Maneja y comparte tus servicios de e-salud"
+                }
+            ]
+        }
+    ]
+}
