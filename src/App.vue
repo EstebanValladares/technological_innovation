@@ -18,13 +18,9 @@ const prueba1 = () => {
 const prueba2 = () => {
     router.push('/prueba2');
 };
-
-/* tiempo de carga del loader */
-onMounted(() => {
-    setTimeout(() => {
-        isLoading.value = false;
-    }, 1000);
-});
+const lizlock = () => {
+    router.push('/lizlock');
+};
 
 /* despliegue de la barra de navegacion de telefono */
 const openBar = ref(false);
@@ -55,6 +51,7 @@ function openOptions2() {
                         <ul class="dropdown-content">
                             <li><button @click="prueba1">Bleader</button></li>
                             <li><button @click="prueba2">Quetzacloud</button></li>
+                            <li><button @click="lizlock">Lizlock</button></li>
                         </ul>
                         </li>
                         <li>SERVICIOS</li>

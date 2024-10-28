@@ -6,6 +6,7 @@ import Daxoly from '@/views/daxoly.vue'
 import conoceMas from '@/views/conoceMas.vue';
 import prueba1 from '@/views/prueba1.vue';
 import prueba2 from '@/views/prueba2.vue';
+import Lizlock from '@/views/lizlock.vue';
 const routes = [
     {
         path: '/',
@@ -37,6 +38,11 @@ const routes = [
         path: '/prueba2',
         name:'prueba2',
         component: prueba2
+    },
+    {
+        path: '/lizlock',
+        name:'lizlock',
+        component: Lizlock
     }
 
 ];
