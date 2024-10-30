@@ -1,69 +1,54 @@
 <script setup>
-    
+import { ref, onMounted } from 'vue';
+import Loading from '../components/loader.vue';
+
+const isLoading = ref(true);
+const dats = ref([]);
+
+async function getData(){
+    try{
+        const response = await fetch('http://127.0.0.1:5000/quetzacloudData')
+        if(response.ok){
+            dats.value = await response.json()
+        }else{
+            console.log('error', response.statusText)
+        }
+    } catch(error){
+        console.log('error', error)
+    }
+}
+
+onMounted(() => {
+    setTimeout(() => {
+        isLoading.value = false;
+    }, 3000);
+    getData();
+}); 
+
 </script>
 
 <template>
     <main>
             <!-- seccion del presentacion, imagen logo y texto -->
-        <section class="container-logo flex">
+        <section class="container-logo flex" v-for="(title,index) in dats" :key="index">
             <article>
                 <img src="../image/quetzacloud/quetzacloud.png" alt="logo empresa">
             </article>
             <article>
-                <h1>QUEDZACLOUD</h1>
-                <p>Elevate Your Potential: Unlock Limitless Opportunities and Drive Success with Our Cloud-Based Motivational Solutions</p>
+                <h1> {{ title.home[0].imageTitle }} </h1>
+                <p> {{ title.home[0].textTitle }} </p>
             </article>
         </section>
 
         <!-- segunda seccion de datos y contenido con imagenes -->
         <h2 class="title-section">Comunicacion en su entorno</h2>
         <!-- seccion de cards para datos de la empresa -->
-        <section class="flex container-cadsDinamic">
-            <article>
+        <section class="flex container-cadsDinamic" v-for="(item,html) in dats" :key="html">
+            <article v-for="(info,html) in item.cards" :key="html">
                 <div class="card">
                     <div class="content flex">
-                        <img src="../image/quetzacloud/db-cloud.png" alt="">
-                        <p class="para">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-                        laboriosam at voluptas minus culpa deserunt delectus sapiente
-                        inventore pariatur
-                        </p>
-                    </div>
-                </div>
-            </article>
-            <article>
-                <div class="card">
-                    <div class="content flex">
-                        <img src="../image/quetzacloud/ecosystem.png" alt="">
-                        <p class="para">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-                        laboriosam at voluptas minus culpa deserunt delectus sapiente
-                        inventore pariatur
-                        </p>
-                    </div>
-                </div>
-            </article>
-            <article>
-                <div class="card">
-                    <div class="content flex">
-                        <img src="../image/quetzacloud/multi-cloud.png" alt="">
-                        <p class="para">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-                        laboriosam at voluptas minus culpa deserunt delectus sapiente
-                        inventore pariatur
-                        </p>
-                    </div>
-                </div>
-            </article>
-            <article>
-                <div class="card">
-                    <div class="content flex">
-                        <img src="../image/quetzacloud/cloud.png" alt="">
-                        <p class="para">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-                        laboriosam at voluptas minus culpa deserunt delectus sapiente
-                        inventore pariatur
-                        </p>
+                        <img :src="info.imageCard" alt="">
+                        <p class="para"> {{ info.textCard }} </p>
                     </div>
                 </div>
             </article>
@@ -90,7 +75,7 @@
             </article>
         </section> -->
 
-        <section class="container-image-info">
+        <section class="container-image-info" >
             <article class="flex">
                 <div class="card-infoCloud">
                     <div class="tools">
@@ -101,12 +86,8 @@
                         </div>
                     </div>
                     <div class="card__content">
-                        <ul>
-                            <li>1.- Acceso global: Usa la plataforma desde cualquier dispositivo con internet.
-                            </li>
-                            <li>2.- Experiencia personalizada: Ajusta las herramientas a tus metas.</li>
-                            <li>3.- Actualizaciones automáticas: Siempre con las últimas mejoras sin esfuerzo.</li>
-                            <li>4.- Colaboración: Comparte y trabaja en equipo de forma motivacional.</li>
+                        <ul v-for="(info,index) in dats[0].information.container1" :key="index">
+                            <li> {{ info.itemText }} </li>
                         </ul>
                     </div>
                 </div>
@@ -121,12 +102,8 @@
                         </div>
                     </div>
                     <div class="card__content">
-                        <ul>
-                            <li>1.- Seguridad: Tus datos protegidos con encriptación avanzada.
-                            </li>
-                            <li>2.- Escalabilidad: Crece con la plataforma según tus necesidades.</li>
-                            <li>3.- Análisis inmediato: Revisa tu progreso en tiempo real.</li>
-                            <li>4.- Soporte continuo: Ayuda disponible 24/7 para cualquier duda.</li>
+                        <ul v-for="(info,index) in dats[0].information.container2" :key="index">
+                            <li> {{ info.itemText }} </li>
                         </ul>
                     </div>
                 </div>

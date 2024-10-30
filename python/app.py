@@ -9,7 +9,7 @@ CORS(app)
 # Conexión a base de datos MongoDB
 try:
     client = MongoClient('mongodb://root:example@localhost:27018/')
-    db = client["test"]
+    db = client["mistix"]
     print("Conexión a MongoDB exitosa")
 except errors.ConnectionError as e:
     print(f"Error de conexión a MongoDB: {e}")
@@ -51,6 +51,15 @@ def get_data():
         print(f"Error al obtener datos: {e}")
         return jsonify({"error": "Error al obtener datos"}), 500
 
+@app.route('/quetzacloudData', methods=['GET'])
+def get_data2():
+    try:
+        data = list(db['quetzacloud'].find({},{'_id': 0}))
+        print("Datos obtenidos de la colección:", data)
+        return jsonify(data)
+    except Exception as e:
+        print(f"Error al obtener datos: {e}")
+        return jsonify({"error": "Error al obtener datos"}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5000)

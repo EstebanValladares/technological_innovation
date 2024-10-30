@@ -45,62 +45,38 @@
             </section>
             
             <!-- segunda seccion de datos y contenido con imagenes -->
+            <!-- segunda seccion de datos y contenido con imagenes -->
             <h2 class="title-section">Servicio de construcción automático de sistemas e-salud para el manejo de datos y contenidos en la práctica médica</h2>
             <!-- seccion de cards para datos de la empresa -->
             <section class="flex container-cadsDinamic">
-                <article>
-                    <div class="card">
+                <article v-for="(item, index) in dats" :key="index">
+                    <div class="card" v-for="(card, cardIndex) in item.cards" :key="cardIndex">
                         <div class="content flex">
-                            <img src="../image/nez/nez-0.png" alt="">
-                            <p class="para">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-                            laboriosam at voluptas minus culpa deserunt delectus sapiente
-                            inventore pariatur
-                            </p>
-                        </div>
-                    </div>
-                </article>
-                <article>
-                    <div class="card">
-                        <div class="content flex">
-                            <img src="../image/nez/nez-1.png" alt="">
-                            <p class="para">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-                            laboriosam at voluptas minus culpa deserunt delectus sapiente
-                            inventore pariatur
-                            </p>
-                        </div>
-                    </div>
-                </article>
-                <article>
-                    <div class="card">
-                        <div class="content flex">
-                            <img src="../image/nez/nez-2.png" alt="">
-                            <p class="para">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-                            laboriosam at voluptas minus culpa deserunt delectus sapiente
-                            inventore pariatur
-                            </p>
+                            <img :src="card.src" alt="">
+                            <p class="para"> {{ card.description }} </p>
                         </div>
                     </div>
                 </article>
             </section>
+            
+            <!-- tercera seccion -->
+            <!-- tercera seccion -->
             <!-- titulo 3 -->
             <h2 class="title-section">Sistema de e-salud</h2>
             <!-- seccion de imagenes informativas -->
-            <section class="container-image-info">
-                <article class="flex">
+            <section class="container-image-info" v-for="(item, index) in dats" :key="index">
+                <article class="flex" v-for="(info, index) in item.information" :key="index">
                     <h3>Maneja y comparte tus servicios de e-salud</h3>
                     <div class="flex">
-                        <img src="../image/nez/servicios-salud1.png" alt="servicio de salud">
+                        <img :src="info.src" alt="servicio de salud">
                     </div>
                 </article>
-                <article class="flex">
+                <!-- <article class="flex">
                     <h3>Sistema de e-salud inter institucional</h3>
                     <div class="flex">
                         <img src="../image/nez/sistema-esalud1.png" alt="sistema de salud">
                     </div>
-                </article>
+                </article> -->
             </section>
         </main>
     </div>
@@ -161,6 +137,10 @@ article{
     margin: 2rem 0;
 }
 
+.container-cadsDinamic article{
+    display: flex;
+}
+
 .card {
     position: relative;
     display: flex;
@@ -169,6 +149,7 @@ article{
     width: 20vw;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     padding: 32px;
+    margin: 1rem;
     overflow: hidden;
     border-radius: 10px;
     transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
