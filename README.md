@@ -51,3 +51,9 @@ pip install flask-cors
 python app
 
 ```
+### biblioteca pymongo
+
+```sh
+pip install pymongo
+
+```

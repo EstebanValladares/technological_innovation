@@ -3,11 +3,27 @@ import { ref, onMounted } from 'vue';
 import Loading from '../components/loader.vue';
 
 const isLoading = ref(true);
+const dats = ref([]);
+
+async function getData(){
+    try{
+        const response = await fetch('http://127.0.0.1:5000/bleaderData')
+        if(response.ok){
+            dats.value = await response.json()
+        }else{
+            console.log('error', response.statusText)
+        }
+    } catch(error){
+        console.log('error', error)
+
+    }
+}
 
 onMounted(() => {
     setTimeout(() => {
         isLoading.value = false;
     }, 3000);
+    getData();
 }); 
 
 </script>

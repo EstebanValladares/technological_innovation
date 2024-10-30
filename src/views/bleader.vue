@@ -1,85 +1,109 @@
 <script setup>
-    const url = 'http://127.0.0.1:5000/nez.vue'
-    const api =(url)=>{
-        fetch(url)
-        .then(responde => responde.json())
-        .then(data => console.log(data[1]))
-        .catch(error => console.log(error))
-    };
-    api(url);
+    import { ref, onMounted } from 'vue';
+    import Loading from '../components/loader.vue';
+
+    const isLoading = ref(true);
+    const dats = ref([]);
+
+    async function getData(){
+        try{
+            const response = await fetch('http://127.0.0.1:5000/bleaderData')
+            if(response.ok){
+                dats.value = await response.json()
+            }else{
+                console.log('error', response.statusText)
+            }
+        } catch(error){
+            console.log('error', error)
+            
+        }
+    }
+    
+    onMounted(() => {
+        getData();
+        setTimeout(() => {
+            isLoading.value = false;
+        }, 1000);
+    });
+    
 </script>
 <template>
-    <main>
-        <!-- seccion del presentacion, imagen logo y texto -->
-        <section class="container-logo flex">
-            <article>
-                <img src="../image/nez/BeaverBuilder.png" alt="logo empresa">
-            </article>
-            <article>
-                <h1>BLEADER</h1>
-                <p>Con un enfoque proactivo y personalizado, te ayudamos a mantener la tranquilidad en un entorno digital en constante evolución. ¡Tu seguridad es nuestra prioridad!</p>
-            </article>
-        </section>
-        
-        <!-- segunda seccion de datos y contenido con imagenes -->
-        <h2 class="title-section">Servicio de construcción automático de sistemas e-salud para el manejo de datos y contenidos en la práctica médica</h2>
-        <!-- seccion de cards para datos de la empresa -->
-        <section class="flex container-cadsDinamic">
-            <article>
-                <div class="card">
-                    <div class="content flex">
-                        <img src="../image/nez/nez-0.png" alt="">
-                        <p class="para">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-                        laboriosam at voluptas minus culpa deserunt delectus sapiente
-                        inventore pariatur
-                        </p>
+    <div v-if="isLoading">
+        <Loading></Loading>
+    </div>
+    <div v-else>
+        <main>
+            <!-- seccion del presentacion, imagen logo y texto -->
+            <section class="container-logo flex" v-for="(item, index) in dats" :key="index">
+                <article>
+                    <img src="../image/nez/BeaverBuilder.png" alt="logo empresa">
+                </article>
+                <article>
+                    <h1> {{ item.home.textHome.title }} </h1>
+                    <p> {{ item.home.textHome.text }} </p>
+                </article>
+            </section>
+            
+            <!-- segunda seccion de datos y contenido con imagenes -->
+            <h2 class="title-section">Servicio de construcción automático de sistemas e-salud para el manejo de datos y contenidos en la práctica médica</h2>
+            <!-- seccion de cards para datos de la empresa -->
+            <section class="flex container-cadsDinamic">
+                <article>
+                    <div class="card">
+                        <div class="content flex">
+                            <img src="../image/nez/nez-0.png" alt="">
+                            <p class="para">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
+                            laboriosam at voluptas minus culpa deserunt delectus sapiente
+                            inventore pariatur
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </article>
-            <article>
-                <div class="card">
-                    <div class="content flex">
-                        <img src="../image/nez/nez-1.png" alt="">
-                        <p class="para">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-                        laboriosam at voluptas minus culpa deserunt delectus sapiente
-                        inventore pariatur
-                        </p>
+                </article>
+                <article>
+                    <div class="card">
+                        <div class="content flex">
+                            <img src="../image/nez/nez-1.png" alt="">
+                            <p class="para">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
+                            laboriosam at voluptas minus culpa deserunt delectus sapiente
+                            inventore pariatur
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </article>
-            <article>
-                <div class="card">
-                    <div class="content flex">
-                        <img src="../image/nez/nez-2.png" alt="">
-                        <p class="para">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-                        laboriosam at voluptas minus culpa deserunt delectus sapiente
-                        inventore pariatur
-                        </p>
+                </article>
+                <article>
+                    <div class="card">
+                        <div class="content flex">
+                            <img src="../image/nez/nez-2.png" alt="">
+                            <p class="para">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
+                            laboriosam at voluptas minus culpa deserunt delectus sapiente
+                            inventore pariatur
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </article>
-        </section>
-        <!-- titulo 3 -->
-        <h2 class="title-section">Sistema de e-salud</h2>
-        <!-- seccion de imagenes informativas -->
-        <section class="container-image-info">
-            <article class="flex">
-                <h3>Maneja y comparte tus servicios de e-salud</h3>
-                <div class="flex">
-                    <img src="../image/nez/servicios-salud1.png" alt="servicio de salud">
-                </div>
-            </article>
-            <article class="flex">
-                <h3>Sistema de e-salud inter institucional</h3>
-                <div class="flex">
-                    <img src="../image/nez/sistema-esalud1.png" alt="sistema de salud">
-                </div>
-            </article>
-        </section>
-    </main>
+                </article>
+            </section>
+            <!-- titulo 3 -->
+            <h2 class="title-section">Sistema de e-salud</h2>
+            <!-- seccion de imagenes informativas -->
+            <section class="container-image-info">
+                <article class="flex">
+                    <h3>Maneja y comparte tus servicios de e-salud</h3>
+                    <div class="flex">
+                        <img src="../image/nez/servicios-salud1.png" alt="servicio de salud">
+                    </div>
+                </article>
+                <article class="flex">
+                    <h3>Sistema de e-salud inter institucional</h3>
+                    <div class="flex">
+                        <img src="../image/nez/sistema-esalud1.png" alt="sistema de salud">
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
 </template>
 
 <style scoped>

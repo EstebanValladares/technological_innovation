@@ -12,11 +12,11 @@ const informacion = () => {
 const homePage = () => {
     router.push('/');
 };
-const prueba1 = () => {
-    router.push('/prueba1');
+const bleader = () => {
+    router.push('/bleader');
 };
-const prueba2 = () => {
-    router.push('/prueba2');
+const quetzacloud = () => {
+    router.push('/quetzacloud');
 };
 const lizlock = () => {
     router.push('/lizlock');
@@ -49,8 +49,8 @@ function openOptions2() {
                     <ul :class="{ 'elements-movil':true, 'open': openElementMovil }">
                         <li class="dropdown">INICIO
                         <ul class="dropdown-content">
-                            <li><button @click="prueba1">Bleader</button></li>
-                            <li><button @click="prueba2">Quetzacloud</button></li>
+                            <li><button @click="bleader">Bleader</button></li>
+                            <li><button @click="quetzacloud">Quetzacloud</button></li>
                             <li><button @click="lizlock">Lizlock</button></li>
                         </ul>
                         </li>
