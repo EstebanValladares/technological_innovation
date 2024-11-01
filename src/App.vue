@@ -21,6 +21,12 @@ const quetzacloud = () => {
 const lizlock = () => {
     router.push('/lizlock');
 };
+const chilvery = () => {
+    router.push('/chilvery');
+};
+const daxoly = () => {
+    router.push('/daxoly');
+};
 
 /* despliegue de la barra de navegacion de telefono */
 const openBar = ref(false);
@@ -52,6 +58,8 @@ function openOptions2() {
                             <li><button @click="bleader">Bleader</button></li>
                             <li><button @click="quetzacloud">Quetzacloud</button></li>
                             <li><button @click="lizlock">Lizlock</button></li>
+                            <li><button @click="chilvery">Chilvery</button></li>
+                            <li><button @click="daxoly">Daxoly</button></li>
                         </ul>
                         </li>
                         <li>SERVICIOS</li>
@@ -74,8 +82,11 @@ function openOptions2() {
                         <div v-if="openBar">
                             <li @click="openOptions2">INICIO
                                 <div class="optionsMovil" v-if="openBar2">
-                                    <li><button @click="prueba1">Bleader</button></li>
-                                    <li><button @click="prueba2">Quetzacloud</button></li>
+                                    <li><button @click="bleader">Bleader</button></li>
+                                    <li><button @click="quetzacloud">Quetzacloud</button></li>
+                                    <li><button @click="lizlock">Lizlock</button></li>
+                                    <li><button @click="chilvery">Chilvery</button></li>
+                                    <li><button @click="daxoly">Daxoly</button></li>
                                 </div>
                             </li>
                             <li>SERVICIOS</li>

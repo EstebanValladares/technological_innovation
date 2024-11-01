@@ -5,6 +5,8 @@ import conoceMas from '@/views/conoceMas.vue';
 import bleader from '@/views/bleader.vue';
 import quetzacloud from '@/views/quetzacloud.vue';
 import Lizlock from '@/views/lizlock.vue';
+import Chilvery from '@/views/chilvery.vue';
+import Daxoly from '@/views/daxoly.vue';
 const routes = [
     {
         path: '/',
@@ -30,6 +32,16 @@ const routes = [
         path: '/lizlock',
         name:'lizlock',
         component: Lizlock
+    },
+    {
+        path: '/chilvery',
+        name:'chilvery',
+        component: Chilvery
+    },
+    {
+        path: '/daxoly',
+        name:'daxoly',
+        component: Daxoly
     }
 
 ];
