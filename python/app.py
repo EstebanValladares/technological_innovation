@@ -1,6 +1,11 @@
-from flask import Flask, jsonify, send_from_directory, request
+from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
 from pymongo import MongoClient, errors
+from loggerClass import Logger
+
+#funcion logger
+#funcion logger
+logger = Logger()
 
 app = Flask(__name__, static_folder="dist")
 CORS(app)
@@ -11,7 +16,9 @@ try:
     client = MongoClient('mongodb://root:example@localhost:27018/')
     db = client["mistix"]
     print("Conexión a MongoDB exitosa")
+    logger.log_info('Conexion a base de datos MongoDB exitosa')
 except errors.ConnectionError as e:
+    logger.log_error("Error de conexión a MongoDB")
     print(f"Error de conexión a MongoDB: {e}")
 
 
@@ -29,36 +36,27 @@ def serve_assets(filename):
 def favicon():
     return send_from_directory(app.static_folder, 'favicon.ico')
 
-
-#rutas de vistas en vue
-#rutas de vistas en vue
-
-#ruta home
-#ruta home
+#rutas para uso de vue
+#rutas para uso de vue
 @app.route('/')
 def index():
     return send_from_directory(app.static_folder, 'index.html')
 
-#ruta bleader
-#ruta bleader
-@app.route('/bleaderData', methods=['GET'])
-def get_data():
+@app.route('/<collection_name>', methods=['GET'])
+def get_data(collection_name):
     try:
-        data = list(db["bleader"].find({}, {'_id': 0}))
-        print("Datos obtenidos de la colección:", data)
+        # Verifica si la colección existe
+        if collection_name not in db.list_collection_names():
+            logger.log_error("coleccion no encontrada")
+            return jsonify({"error": "Colección no encontrada"}), 404
+        
+        # Obtén los datos de la colección
+        data = list(db[collection_name].find({}, {'_id': 0}))
+        logger.log_info(f"Datos obtenidos de la colección {collection_name}")
+        print(f"Datos obtenidos de la colección {collection_name}:", data)
         return jsonify(data)
     except Exception as e:
-        print(f"Error al obtener datos: {e}")
-        return jsonify({"error": "Error al obtener datos"}), 500
-
-@app.route('/quetzacloudData', methods=['GET'])
-def get_data2():
-    try:
-        data = list(db['quetzacloud'].find({},{'_id': 0}))
-        print("Datos obtenidos de la colección:", data)
-        return jsonify(data)
-    except Exception as e:
-        print(f"Error al obtener datos: {e}")
+        logger.log_error(f"Error al obtener datos de la colección {collection_name}: {e}")
         return jsonify({"error": "Error al obtener datos"}), 500
 
 if __name__ == '__main__':
