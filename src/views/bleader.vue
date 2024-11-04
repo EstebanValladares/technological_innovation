@@ -1,21 +1,55 @@
 <script setup>
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted,watch } from 'vue';
     import Loading from '../components/loader.vue';
 
     const isLoading = ref(true);
     const dats = ref([]);
 
-    async function getData(){
-        try{
-            const response = await fetch('http://127.0.0.1:5000/bleaderData')
-            if(response.ok){
-                dats.value = await response.json()
-            }else{
-                console.log('error', response.statusText)
-            }
-        } catch(error){
-            console.log('error', error)
-            
+    const mensajeDeAlerta = ref('');
+    const colorMensaje = ref('');
+
+    // Función para establecer el mensaje de alerta
+    const mostrarMensaje = (mensaje, color) => {
+        mensajeDeAlerta.value = mensaje;
+        colorMensaje.value = color;
+        setTimeout(() => {
+            mensajeDeAlerta.value = ''; // Borra el mensaje después de unos segundos
+            colorMensaje.value = ''; // Resetea el color
+        }, 8000); // Ajusta el tiempo según tus necesidades
+    };
+
+    // Watch para observar cambios en mensajeDeAlerta
+    watch(mensajeDeAlerta, (newValue) => {
+        if (newValue) {
+            console.log('Mensaje de alerta:', newValue)
+        }
+    })
+
+
+    // conexion a la base de datos
+    // conexion a la base de datos
+    async function getData() {
+    try {
+        const response = await fetch('http://127.0.0.1:5000/bleaderData', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "home.textHome.title": "BLEADER"
+            }),
+        });
+        if (response.ok) {
+            dats.value = await response.json();
+            console.log(response);
+            mostrarMensaje('Datos cargados correctamente', 'green');
+        } else {
+            console.log('error', response.statusText);
+            mostrarMensaje('Error al cargar datos', 'red');
+        }
+        } catch (error) {
+            console.log('error', error);
+            mostrarMensaje(`Error: ${error.message}`, 'red');
         }
     }
     
@@ -78,7 +112,9 @@
                     </div>
                 </article> -->
             </section>
+            <!-- Mensaje de alerta -->
         </main>
+        <div div v-if="mensajeDeAlerta" class="alert">{{ mensajeDeAlerta }}</div>
     </div>
 </template>
 
@@ -89,6 +125,20 @@
     display: flex;
     justify-content: center;
     align-items: center
+}
+
+/* estilos de mensaje de alerta */
+/* estilos de mensaje de alerta */
+.alert {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #000;
 }
 
 /* seccion del main, logo y titulo */
@@ -229,79 +279,71 @@ img{
         background-color: #ffffff;
     }
 }
+
 /* From Uiverse.io by javierBarroso */ 
 /* From Uiverse.io by javierBarroso */ 
 .card-data {
-  width: 30vw;
-  height: 60vh;
-  margin: 0 auto;
-  background-color: #f4f4f3;
-  border-radius: 8px;
-  z-index: 1;
-  position: relative;
-  display: flex;
-  flex-direction: column;
+    width: 30vw;
+    height: 60vh;
+    margin: 0 auto;
+    background-color: #f4f4f3;
+    border-radius: 8px;
+    z-index: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
-
 .card-data::after {
-  position: absolute;
-  content: '';
-  background-color: #454a50;
-  width: 50px;
-  height: 100px;
-  z-index: -1;
-  border-radius: 8px;
+    position: absolute;
+    content: '';
+    background-color: #454a50;
+    width: 50px;
+    height: 100px;
+    z-index: -1;
+    border-radius: 8px;
 }
-
 .tools {
-  display: flex;
-  align-items: center;
-  padding: 9px;
-  border-radius: 8px;
-  background: #454a50;
-  margin-top: -2px;
+    display: flex;
+    align-items: center;
+    padding: 9px;
+    border-radius: 8px;
+    background: #454a50;
+    margin-top: -2px;
 }
-
 .circle {
-  padding: 0 4px;
+    padding: 0 4px;
 }
-
 .card__content {
-  height: 100%;
-  margin: 0px;
-  border-radius: 8px;
-  background: #f4f4f3;
-  padding: 10px;
+    height: 100%;
+    margin: 0px;
+    border-radius: 8px;
+    background: #f4f4f3;
+    padding: 10px;
 }
-
 .title-data {
-  font-size: 20px;
+    font-size: 20px;
 }
-
 .content-data {
-  margin-top: 10px;
-  font-size: 14px;
+    margin-top: 10px;
+    font-size: 14px;
 }
-
 .box {
-  display: inline-block;
-  align-items: center;
-  width: 10px;
-  height: 10px;
-  padding: 1px;
-  border-radius: 50%;
+    display: inline-block;
+    align-items: center;
+    width: 10px;
+    height: 10px;
+    padding: 1px;
+    border-radius: 50%;
 }
-
 .red {
-  background-color: #ff605c;
+    background-color: #ff605c;
 }
 
 .yellow {
-  background-color: #ffbd44;
+    background-color: #ffbd44;
 }
-
 .green {
-  background-color: #00ca4e;
+    background-color: #00ca4e;
 }
 
 /* SECCION DE ESTILOS MOVIL */
