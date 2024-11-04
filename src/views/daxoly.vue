@@ -3,12 +3,27 @@ import { ref, onMounted } from 'vue';
 import Loading from '../components/loader.vue';
 
 const isLoading = ref(true);
+const dats = ref([]);
+
+async function getData(){
+    try{
+        const response = await fetch('http://127.0.0.1:5000/daxolyData')
+        if(response.ok){
+            dats.value = await response.json()
+        }else{
+            console.log('error', response.statusText)
+        }
+    } catch(error){
+        console.log('error', error)
+    }
+}
 
 onMounted(() => {
     setTimeout(() => {
         isLoading.value = false;
     }, 3000);
-});
+    getData();
+}); 
 
 </script>
 
@@ -17,92 +32,90 @@ onMounted(() => {
         <Loading></Loading>
     </div>
     <div v-else>
-        <main class="parallax-daxoly flex">
-        <!-- seccion de presentacion  -->
-            <section class="container-main flex">
-                <article class="flex">
-                    <img src="../image/ajolote/Proyecto Quitar fondo_transparente.png" alt="logo daoxoly" loading="lazy">
+        <main>
+            <!-- seccion del presentacion, imagen logo y texto -->
+            <section class="container-logo flex" v-for="(title,index) in dats" :key="index">
+                <article>
+                    <img src="../image/daxoly/ajolote.png" alt="logo empresa">
                 </article>
-                <article class="flex">
-                    <h1>Daxoly</h1>
-                    <p>Ajolote es una empresa líder en el sector de tecnología y seguridad, dedicada a proporcionar soluciones avanzadas para proteger y optimizar los entornos digitales de nuestros clientes. Fundada con el objetivo de fusionar innovación y seguridad, Ajolote ofrece una amplia gama de servicios, incluyendo ciberseguridad, desarrollo de software a medida, y consultoría tecnológica.</p>
+                <article>
+                    <h1> {{ title.home[0].imageTitle }} </h1>
+                    <p> {{ title.home[0].textTitle }} </p>
                 </article>
             </section>
 
-            <!-- seccion de aportaciones que ha tenido -->
-            <h2 class="title-innovations">Mejores aportaciones!!</h2>
-            <section class="innovations flex">
-                <article class="flex">
-                    <h3>Las innovaciones mas sobresalientes:</h3>
-                    <p>Algunas de las mejores innovaciones fueron aportadas para institutos</p>
-                </article>
-                <article>
-                    <div>
-                        <img src="../image/ajolote/main-image.webp" alt="aportacion 1" loading="lazy">
-                    </div>
-                    <div>
-                        <h3>Plataforma de Defensa</h3>
-                        <p>Ajolote ha desarrollado una plataforma avanzada de defensa cibernética que utiliza inteligencia artificial para detectar y neutralizar amenazas en tiempo real.</p>
-                    </div>
-                </article>
-                <article>
-                    <div>
-                        <img src="../image/ajolote/main-image.webp" alt="aportacion 2" loading="lazy">
-                    </div>
-                    <div>
-                        <h3>Sistema de Autenticación</h3>
-                        <p>Para mejorar la seguridad de acceso, Ajolote ha implementado un sistema de autenticación multifactor biométrica que combina múltiples métodos de autenticación</p>
-                    </div>
-                </article>
-                <article>
-                    <div>
-                        <img src="../image/ajolote/main-image.webp" alt="aportacion 3" loading="lazy">
-                    </div>
-                    <div>
-                        <h3>Red de Seguridad Cibernética</h3>
-                        <p>Ajolote ha creado una red de seguridad cibernética autoevolutiva que utiliza algoritmos de aprendizaje automático para actualizar automáticamente sus protocolos de seguridad.</p>
+            <!-- segunda seccion de datos y contenido con imagenes -->
+            <h2 class="title-section">Comunicacion en su entorno</h2>
+            <!-- seccion de cards para datos de la empresa -->
+            <section class="flex container-cadsDinamic" v-for="(item,html) in dats" :key="html">
+                <article v-for="(info,html) in item.cards" :key="html">
+                    <div class="card">
+                        <div class="content flex">
+                            <img :src="info.imageCard" alt="">
+                            <p class="para"> {{ info.textCard }} </p>
+                        </div>
                     </div>
                 </article>
             </section>
-            <!-- seccion de explicacion de daxoly con los datos -->
-            <section class="container-dataInfo">
-                <h2>SE ADAPTA A TUS DATOS</h2>
-                <h3>Analiza datos estructurados sin programar</h3>
+
+            <!-- espacio que determinara si tiene informacion o es una imagen -->
+            <!-- espacio que determinara si tiene informacion o es una imagen -->
+
+            <!-- titulo 3 -->
+            <h2 class="title-section">Gran seguridad para la comunidad</h2>
+            <!-- seccion de imagenes informativas -->
+            <!-- <section class="container-image-info">
+                <article class="flex">
+                    <h3>Maneja y comparte tus servicios de e-salud</h3>
+                    <div class="flex">
+                        <img src="../image/nez/servicios-salud1.png" alt="servicio de salud">
+                    </div>
+                </article>
+                <article class="flex">
+                    <h3>Sistema de e-salud inter institucional</h3>
+                    <div class="flex">
+                        <img src="../image/nez/sistema-esalud1.png" alt="sistema de salud">
+                    </div>
+                </article>
+            </section> -->
+
+            <section class="container-image-info" >
+                <article class="flex">
+                    <div class="card-infoCloud">
+                        <div class="tools">
+                            <div class="circle-cloud">
+                                <span class="red box"></span>
+                                <span class="yellow box"></span>
+                                <span class="green box"></span>
+                            </div>
+                        </div>
+                        <div class="card__content">
+                            <ul v-for="(info,index) in dats[0].information.container1" :key="index">
+                                <li> {{ info.itemText }} </li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+                <article class="flex">
+                    <div class="card-infoCloud">
+                        <div class="tools">
+                            <div class="circle-cloud">
+                                <span class="red box"></span>
+                                <span class="yellow box"></span>
+                                <span class="green box"></span>
+                            </div>
+                        </div>
+                        <div class="card__content">
+                            <ul v-for="(info,index) in dats[0].information.container2" :key="index">
+                                <li> {{ info.itemText }} </li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
             </section>
-            <!-- fundadores de la empresa -->
-            <section class="container-fundators">
-                <article class="flex">
-                    <div>
-                        <img src="../image/ajolote/inv1.png" alt="fundador 1" oading="lazy">
-                    </div>
-                    <div>
-                        <h2>Dr. Elisa Montenegro</h2>
-                        <p>Dr. Elisa Montenegro es una experta en inteligencia artificial aplicada a la ciberseguridad. Con un doctorado en Ciencias de la Computación y más de 15 años de experiencia en el campo, Elisa ha liderado el desarrollo de la plataforma de defensa cibernética basada en IA de Ajolote.</p>
-                    </div>
-                </article>
-                <article class="flex">
-                    <div>
-                        <h2>Dra. Valeria Cordero</h2>
-                        <p> Dra. Valeria Cordero es una reconocida experta en encriptación y criptografía cuántica. Con un doctorado en Matemáticas Aplicadas y años de investigación en tecnologías emergentes, Valeria ha liderado el desarrollo de la solución de encriptación cuántica de Ajolote.</p>
-                    </div>
-                    <div>
-                        <img src="../image/ajolote/inv2.png" alt="fundador 2" oading="lazy">
-                    </div>
-                </article>
-                <article class="flex">
-                    <div>
-                        <img src="../image/ajolote/inv3.png" alt="fundador 3" oading="lazy">
-                    </div>
-                    <div>
-                        <h2>Ing. Mateo Ríos</h2>
-                        <p>Ingeniero en Seguridad de la Información, Mateo Ríos es el cerebro detrás del sistema de autenticación multifactor biométrica de Ajolote. Con un sólido background en criptografía y sistemas de autenticación, Mateo ha desarrollado soluciones innovadoras para mejorar la seguridad de acceso a sistemas críticos.</p>
-                    </div>
-                </article>
-            </section>
+
         </main>
     </div>
-    
-
 </template>
 
 <style scoped>
@@ -113,114 +126,219 @@ onMounted(() => {
     align-items: center
 }
 
-.parallax-daxoly{
-    flex-direction: column;
-    position: relative;
-    background-image: url('../image/ajolote/ajolote.png');
-    background-attachment: fixed;
+/* seccion del main, logo y titulo */
+/* seccion del main, logo y titulo */
+article{
+    margin: 1rem;
+}
+.container-logo{
+    height: 100vh;
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+    background-blend-mode: multiply;
+    background-image: url('../image/daxoly/ajolote-home.webp');
+    background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    overflow: hidden;
-}
-.parallax-daxoly:before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(246, 245, 250, 0.5);
-}
-.container-main{
-    height: 80vh;
-    width: 90vw;
-    background-color: rgba(255, 169, 194, 0.9);
-    border-radius: 10px;
-    flex-direction: row;
+    flex-direction: column;
 
     article{
-        width: 50%;
-        height: 100%;
-        flex-direction: column;
-        h1{
-            font-size: 4rem;
-            margin: 1rem;
-        }
-        p{
-            font-size: 1.5rem;
-            margin: 1rem;
-        }
+        text-align: center;
+    }
+    h1{
+        color: rgb(255, 255, 255);
+        font-size: 3rem;
+        font-weight: 700;
+        margin-top: 1rem;
+    }
+    p{
+        color: #ffffff;
+        font-size: 1.5rem;
+        margin: 1rem 10vw;
     }
     img{
-        width: 70%;
-        height: 70%;
-        object-fit: cover;
+        max-width: 25%;
         border-radius: 50%;
     }
 }
-/* seccion de estilos de las innovaciones */
-.title-innovations{
+
+/* seccion de la segunda parte de la pagina */
+/* seccion de la segunda parte de la pagina */
+
+.title-section{
+    color: black;
     font-size: 2rem;
-    margin-top: 2rem;
-    color: 000;
-    z-index: 1;
-    border-bottom: 3px solid #FF6A81;
+    font-weight: 700;
+    text-align: center;
+    margin: 2rem 0;
 }
-.innovations{
-    height: 60vh;
-    article{
-        width: 100%;
-        height: 70%;
-        padding: 1rem;
-        margin: 1rem;
-        background-color: #FEDBD2;
-        flex-direction: column;
-        div{
-            text-align: center;
-            img{
-                width: 80%;
-                height: 80%;
-                object-fit: cover;
-                border-radius: 10px;
-            };
-        }
-    }
-}
-/* estilos de la seccion de datos */
-.container-dataInfo{
+
+.card {
+    position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 20vw;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    padding: 32px;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.content {
     flex-direction: column;
-    h2{
-        color: #000;
-        font-size: 2rem;
-        margin: 1rem;
-        border-bottom: 4px solid #FF6A81;
+    align-items: flex-start;
+    text-align: center;
+    gap: 20px;
+    color: #000000;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.content .para {
+    line-height: 1.5;
+}
+img{
+    margin: auto;
+    max-width: 50%;
+}
+.card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(-45deg, #FFBD88 0%, #91B8FD 100% );
+    z-index: -1;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+.content:hover {
+    color: #ffffff;
+}
+.card:hover::before {
+    width: 100%;
+}
+
+.card:hover {
+    box-shadow: none;
+}
+
+/* seccion de estilos del contenido de las imagenes con informacion */
+/* seccion de estilos del contenido de las imagenes con informacion */
+.container-image-info{
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    article{
+        width: 50%;
+        flex-direction: column;
     }
-    h3{
-        font-size: 1.5rem;
-        margin: 1rem;
+    div{
+        width: 100%;
+        height: 100%;
+    }
+    img{
+        max-width: 70%;
+        object-fit: cover;
+        margin-top: 1rem;
     }
 }
-/* estilos de los fundadores */
-.container-fundators{
+
+/* seccion de cards de datos generados, informacion */
+/* seccion de cards de datos generados, informacion */
+.container-dataGenerations{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
     article{
-        width: 100%;
-        div{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            width: 50%;
-            padding: 1rem;
-            margin: 0 5rem;
-            img{
-                width: 40%;
-                height: 40%;
-                object-fit: cover;
-                border-radius: 10px;
-            }
+        width: 50vw;
+        height: 60vh;
+        background-color: #ffffff;
+    }
+}
+
+/* seccion de cards de informacion de la empresa, de la nuble */
+/* seccion de cards de informacion de la empresa, de la nuble */
+.card-infoCloud {
+    width: 40vw;
+    margin: 0 auto;
+    background-color: #011522;
+    border-radius: 8px;
+    z-index: 1;
+}
+.circle-cloud{
+    display: flex;
+}
+.tools {
+    display: flex;
+    padding: 9px;
+}
+
+.box{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    padding: 1px;
+    margin: 0 5px;
+    border-radius: 50%;
+}
+
+.red {
+    background-color: #ff605c;
+}
+
+.yellow {
+    background-color: #ffbd44;
+}
+
+.green {
+    background-color: #00ca4e;
+}
+li{
+    color: #ffffff;
+    margin: 10px 10px;
+}
+@media (max-width: 768px){
+    .container-logo{
+        h1{
+            font-size: 2rem;
         }
+        p{
+            font-size: 1rem;
+        }
+        img{
+            max-width: 70%;
+        }
+    }
+
+    /* segunda seccion de la pagina(movile) */
+    /* segunda seccion de la pagina(movile) */
+    .title-section{
+        font-size: 1.2rem;
+    }
+    .container-cadsDinamic{
+        flex-direction: column;
+        article{
+            width: 60%;
+            height: 40vh;
+            margin: 1rem;
+        }
+        .card{
+            width: 100%;
+            height: 100%;   
+        }
+        .para{
+            font-size: 1rem;
+        }
+        
+    }
+    /* seccion de texto informativos (movil)*/
+    /* seccion de texto informativos (movil)*/
+    .container-image-info{
+        flex-direction: column;
+        
     }
 }
 </style>

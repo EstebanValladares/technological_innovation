@@ -1,89 +1,123 @@
 <script setup>
-    const url = 'http://127.0.0.1:5000/nez.vue'
-    const api =(url)=>{
-        fetch(url)
-        .then(responde => responde.json())
-        .then(data => console.log(data[1]))
-        .catch(error => console.log(error))
-    };
-    api(url);
+import { ref, onMounted } from 'vue';
+import Loading from '../components/loader.vue';
+
+const isLoading = ref(true);
+const dats = ref([]);
+
+async function getData(){
+    try{
+        const response = await fetch('http://127.0.0.1:5000/lizlockData')
+        if(response.ok){
+            dats.value = await response.json()
+        }else{
+            console.log('error', response.statusText)
+        }
+    } catch(error){
+        console.log('error', error)
+    }
+}
+
+onMounted(() => {
+    setTimeout(() => {
+        isLoading.value = false;
+    }, 3000);
+    getData();
+}); 
+
 </script>
+
 <template>
-    <main>
-        <!-- seccion del presentacion, imagen logo y texto -->
-        <section class="container-logo flex">
-            <article>
-                <img src="../image/nez/BeaverBuilder.png" alt="logo empresa">
-            </article>
-            <article>
-                <h1>Lizlock</h1>
-                <p>Con un enfoque proactivo y personalizado, te ayudamos a mantener la tranquilidad en un entorno digital en constante evolución. ¡Tu seguridad es nuestra prioridad!</p>
-            </article>
-        </section>
-        
-        <!-- segunda seccion de datos y contenido con imagenes -->
-        <h2 class="title-section">Servicio de construcción automático de sistemas e-salud para el manejo de datos y contenidos en la práctica médica</h2>
-        <!-- seccion de cards para datos de la empresa -->
-        <section class="flex container-cadsDinamic">
-            <article>
-                <div class="card">
-                    <div class="content flex">
-                        <img src="../image/nez/nez-0.png" alt="">
-                        <p class="para">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-                        laboriosam at voluptas minus culpa deserunt delectus sapiente
-                        inventore pariatur
-                        </p>
+    <div v-if="isLoading">
+        <Loading></Loading>
+    </div>
+    <div v-else>
+        <main>
+            <!-- seccion del presentacion, imagen logo y texto -->
+            <section class="container-logo flex" v-for="(title,index) in dats" :key="index">
+                <article>
+                    <img src="../image/lizlock/LizLock.png" alt="logo empresa">
+                </article>
+                <article>
+                    <h1> {{ title.home[0].imageTitle }} </h1>
+                    <p> {{ title.home[0].textTitle }} </p>
+                </article>
+            </section>
+
+            <!-- segunda seccion de datos y contenido con imagenes -->
+            <h2 class="title-section">Comunicacion en su entorno</h2>
+            <!-- seccion de cards para datos de la empresa -->
+            <section class="flex container-cadsDinamic" v-for="(item,html) in dats" :key="html">
+                <article v-for="(info,html) in item.cards" :key="html">
+                    <div class="card">
+                        <div class="content flex">
+                            <img :src="info.imageCard" alt="">
+                            <p class="para"> {{ info.textCard }} </p>
+                        </div>
                     </div>
-                </div>
-            </article>
-            <article>
-                <div class="card">
-                    <div class="content flex">
-                        <img src="../image/nez/nez-1.png" alt="">
-                        <p class="para">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-                        laboriosam at voluptas minus culpa deserunt delectus sapiente
-                        inventore pariatur
-                        </p>
+                </article>
+            </section>
+
+            <!-- espacio que determinara si tiene informacion o es una imagen -->
+            <!-- espacio que determinara si tiene informacion o es una imagen -->
+
+            <!-- titulo 3 -->
+            <h2 class="title-section">Gran seguridad para la comunidad</h2>
+            <!-- seccion de imagenes informativas -->
+            <!-- <section class="container-image-info">
+                <article class="flex">
+                    <h3>Maneja y comparte tus servicios de e-salud</h3>
+                    <div class="flex">
+                        <img src="../image/nez/servicios-salud1.png" alt="servicio de salud">
                     </div>
-                </div>
-            </article>
-            <article>
-                <div class="card">
-                    <div class="content flex">
-                        <img src="../image/nez/nez-2.png" alt="">
-                        <p class="para">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-                        laboriosam at voluptas minus culpa deserunt delectus sapiente
-                        inventore pariatur
-                        </p>
+                </article>
+                <article class="flex">
+                    <h3>Sistema de e-salud inter institucional</h3>
+                    <div class="flex">
+                        <img src="../image/nez/sistema-esalud1.png" alt="sistema de salud">
                     </div>
-                </div>
-            </article>
-        </section>
-        <!-- titulo 3 -->
-        <h2 class="title-section">Sistema de e-salud</h2>
-        <!-- seccion de imagenes informativas -->
-        <section class="container-image-info">
-            <article class="flex">
-                <h3>Maneja y comparte tus servicios de e-salud</h3>
-                <div class="flex">
-                    <img src="../image/nez/servicios-salud1.png" alt="servicio de salud">
-                </div>
-            </article>
-            <article class="flex">
-                <h3>Sistema de e-salud inter institucional</h3>
-                <div class="flex">
-                    <img src="../image/nez/sistema-esalud1.png" alt="sistema de salud">
-                </div>
-            </article>
-        </section>
-    </main>
+                </article>
+            </section> -->
+
+            <section class="container-image-info" >
+                <article class="flex">
+                    <div class="card-infoCloud">
+                        <div class="tools">
+                            <div class="circle-cloud">
+                                <span class="red box"></span>
+                                <span class="yellow box"></span>
+                                <span class="green box"></span>
+                            </div>
+                        </div>
+                        <div class="card__content">
+                            <ul v-for="(info,index) in dats[0].information.container1" :key="index">
+                                <li> {{ info.itemText }} </li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+                <article class="flex">
+                    <div class="card-infoCloud">
+                        <div class="tools">
+                            <div class="circle-cloud">
+                                <span class="red box"></span>
+                                <span class="yellow box"></span>
+                                <span class="green box"></span>
+                            </div>
+                        </div>
+                        <div class="card__content">
+                            <ul v-for="(info,index) in dats[0].information.container2" :key="index">
+                                <li> {{ info.itemText }} </li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
 </template>
 
 <style scoped>
-/* estilos reutilizables */
 /* estilos reutilizables */
 .flex{
     display: flex;
@@ -101,7 +135,7 @@ article{
     width: auto;
     background-color: rgba(0, 0, 0, 0.9);
     background-blend-mode: multiply;
-    background-image: url('../image/1.jpg');
+    background-image: url('../image/lizlock/lizlock-home.webp');
     background-size: cover;
     background-position: center;
     flex-direction: column;
@@ -197,7 +231,6 @@ img{
     align-items: center;
     article{
         width: 50%;
-        height: 60vh;
         flex-direction: column;
     }
     div{
@@ -224,86 +257,49 @@ img{
         background-color: #ffffff;
     }
 }
-/* From Uiverse.io by javierBarroso */ 
-/* From Uiverse.io by javierBarroso */ 
-.card-data {
-  width: 30vw;
-  height: 60vh;
-  margin: 0 auto;
-  background-color: #f4f4f3;
-  border-radius: 8px;
-  z-index: 1;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
 
-.card-data::after {
-  position: absolute;
-  content: '';
-  background-color: #454a50;
-  width: 50px;
-  height: 100px;
-  z-index: -1;
-  border-radius: 8px;
+/* seccion de cards de informacion de la empresa, de la nuble */
+/* seccion de cards de informacion de la empresa, de la nuble */
+.card-infoCloud {
+    width: 40vw;
+    margin: 0 auto;
+    background-color: #011522;
+    border-radius: 8px;
+    z-index: 1;
 }
-
+.circle-cloud{
+    display: flex;
+}
 .tools {
-  display: flex;
-  align-items: center;
-  padding: 9px;
-  border-radius: 8px;
-  background: #454a50;
-  margin-top: -2px;
+    display: flex;
+    padding: 9px;
 }
 
-.circle {
-  padding: 0 4px;
-}
-
-.card__content {
-  height: 100%;
-  margin: 0px;
-  border-radius: 8px;
-  background: #f4f4f3;
-  padding: 10px;
-}
-
-.title-data {
-  font-size: 20px;
-}
-
-.content-data {
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-.box {
-  display: inline-block;
-  align-items: center;
-  width: 10px;
-  height: 10px;
-  padding: 1px;
-  border-radius: 50%;
+.box{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    padding: 1px;
+    margin: 0 5px;
+    border-radius: 50%;
 }
 
 .red {
-  background-color: #ff605c;
+    background-color: #ff605c;
 }
 
 .yellow {
-  background-color: #ffbd44;
+    background-color: #ffbd44;
 }
 
 .green {
-  background-color: #00ca4e;
+    background-color: #00ca4e;
 }
-
-/* SECCION DE ESTILOS MOVIL */
-/* SECCION DE ESTILOS MOVIL */
-/* SECCION DE ESTILOS MOVIL */
-
-@media (max-width: 768px) {
+li{
+    color: #ffffff;
+    margin: 10px 10px;
+}
+@media (max-width: 768px){
     .container-logo{
         h1{
             font-size: 2rem;
@@ -337,25 +333,11 @@ img{
         }
         
     }
-
-    /* seccion de imagenes informativas (movil)*/
-    /* seccion de imagenes informativas (movil)*/
+    /* seccion de texto informativos (movil)*/
+    /* seccion de texto informativos (movil)*/
     .container-image-info{
         flex-direction: column;
-        article{
-            width: 80%;
-            height: auto;
-        }
-        div{
-            width: 100%;
-        }
-        img{
-            max-width: 100%;
-        }
-        h3{
-            text-align: center;
-        }
+        
     }
 }
-
 </style>

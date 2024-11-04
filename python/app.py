@@ -15,23 +15,18 @@ CORS(app)
 try:
     client = MongoClient('mongodb://root:example@localhost:27018/')
     db = client["mistix"]
-    print("Conexión a MongoDB exitosa")
     logger.log_info('Conexion a base de datos MongoDB exitosa')
 except errors.ConnectionError as e:
     logger.log_error("Error de conexión a MongoDB")
-    print(f"Error de conexión a MongoDB: {e}")
-
 
 # Rutas de navegacion
 # Rutas de navegacion
 @app.errorhandler(500)
 def internal_error(error):
     return jsonify({"error": "Internal Server Error"}), 500
-
 @app.route('/assets/<path:filename>')
 def serve_assets(filename):
     return send_from_directory(app.static_folder + '/assets', filename)
-
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(app.static_folder, 'favicon.ico')
@@ -41,7 +36,6 @@ def favicon():
 @app.route('/')
 def index():
     return send_from_directory(app.static_folder, 'index.html')
-
 @app.route('/<collection_name>', methods=['GET'])
 def get_data(collection_name):
     try:
@@ -53,8 +47,9 @@ def get_data(collection_name):
         # Obtén los datos de la colección
         data = list(db[collection_name].find({}, {'_id': 0}))
         logger.log_info(f"Datos obtenidos de la colección {collection_name}")
-        print(f"Datos obtenidos de la colección {collection_name}:", data)
         return jsonify(data)
+
+        #manejo de errores
     except Exception as e:
         logger.log_error(f"Error al obtener datos de la colección {collection_name}: {e}")
         return jsonify({"error": "Error al obtener datos"}), 500
