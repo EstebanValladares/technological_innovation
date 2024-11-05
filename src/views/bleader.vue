@@ -1,63 +1,40 @@
 <script setup>
-    import { ref, onMounted,watch } from 'vue';
+    import { ref, onMounted } from 'vue';
     import Loading from '../components/loader.vue';
 
     const isLoading = ref(true);
     const dats = ref([]);
-
-    const mensajeDeAlerta = ref('');
-    const colorMensaje = ref('');
-
-    const errorData = ref(true);
-
-    // Función para establecer el mensaje de alerta
-    const mostrarMensaje = (mensaje, color) => {
-        mensajeDeAlerta.value = mensaje;
-        colorMensaje.value = color;
-        setTimeout(() => {
-            mensajeDeAlerta.value = ''; // Borra el mensaje después de unos segundos
-            colorMensaje.value = ''; // Resetea el color
-        }, 8000); // Ajusta el tiempo según tus necesidades
-    };
-
-    // Watch para observar cambios en mensajeDeAlerta
-    watch(mensajeDeAlerta, (newValue) => {
-        if (newValue) {
-            console.log('Mensaje de alerta:', newValue)
-        }
-    })
-
+    const showError = ref(false);
 
     // conexion a la base de datos
     // conexion a la base de datos
-    async function getData() {
-    try {
-        const response = await fetch('http://127.0.0.1:5000/bleaderData', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "home.textHome.title": "BLEADER"
-            }),
-        });
-        if (response.ok) {
-            dats.value = await response.json();
-            console.log(response);
-            mostrarMensaje('Datos cargados correctamente', 'green');
-            errorData.value = false;
-        } else {
-            console.log('error', response.statusText);
-            mostrarMensaje('Error al cargar datos', 'red');
-            errorData.value = true;
-        }
+async function getData() {
+try {
+    const response = await fetch('http://127.0.0.1:5000/bleaderData', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "home.textHome.title": "BLEADER"
+        }),
+    });
+    if (response.ok) {
+        showError.value = true;
+        dats.value = await response.json();
+        console.log(response);
+        mostrarMensaje('Datos cargados correctamente', 'green');
+    } else {
+        console.log('error', response.statusText);
+        mostrarMensaje('Error al cargar datos', 'red');
+    }
     } catch (error) {
         console.log('error', error);
         mostrarMensaje(`Error: ${error.message}`, 'red');
-     }
     }
-    
-    onMounted(() => {
+}
+
+onMounted(() => {
         getData();
         setTimeout(() => {
             isLoading.value = false;
@@ -71,22 +48,7 @@
     </div>
     <div v-else>
         <main>
-
-            <div v-if="errorData">
-                <!-- seccion de error en pantalla -->
-                <!-- seccion de error en pantalla -->
-                <section class="messageError">
-                    <article>
-                        <img src="../image/icons/Recurso 10SIN FONDO.png" alt="">
-                    </article>
-                    <article>
-                        <h2>Oops! This page couldn’t be displayed</h2>
-                        <p>It seems something went wrong. Please try refreshing the page, or come back later.</p>
-                    </article>
-                </section>
-            </div>
-
-            <div v-else>
+            <div v-if="showError">
                 <!-- seccion del presentacion, imagen logo y texto -->
                 <section class="container-logo flex" v-for="(item, index) in dats" :key="index">
                     <article>
@@ -137,10 +99,22 @@
                     </article> -->
                 </section>
             </div>
-            
+            <!-- pantalla de error -->
+            <!-- pantalla de error -->
+            <div v-else >
+                <!-- seccion de error en pantalla -->
+                <!-- seccion de error en pantalla -->
+                <section class="messageError">
+                    <article>
+                        <img src="../image/icons/Recurso 10SIN FONDO.png" alt="">
+                    </article>
+                    <article>
+                        <h2>Oops! This page couldn’t be displayed</h2>
+                        <p>It seems something went wrong. Please try refreshing the page, or come back later.</p>
+                    </article>
+                </section>
+            </div>  
         </main>
-        <!-- Mensaje de alerta -->
-        <div div v-if="mensajeDeAlerta" class="alert">{{ mensajeDeAlerta }}</div>
     </div>
 </template>
 

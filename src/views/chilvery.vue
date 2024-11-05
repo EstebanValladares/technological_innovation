@@ -1,30 +1,10 @@
 <script setup>
-import { ref, onMounted,watch } from 'vue';
+import { ref, onMounted } from 'vue';
 import Loading from '../components/loader.vue';
 
 const isLoading = ref(true);
-    const dats = ref([]);
-
-    const mensajeDeAlerta = ref('');
-    const colorMensaje = ref('');
-
-    // Función para establecer el mensaje de alerta
-    const mostrarMensaje = (mensaje, color) => {
-        mensajeDeAlerta.value = mensaje;
-        colorMensaje.value = color;
-        setTimeout(() => {
-            mensajeDeAlerta.value = ''; // Borra el mensaje después de unos segundos
-            colorMensaje.value = ''; // Resetea el color
-        }, 8000); // Ajusta el tiempo según tus necesidades
-    };
-
-    // Watch para observar cambios en mensajeDeAlerta
-    watch(mensajeDeAlerta, (newValue) => {
-        if (newValue) {
-            console.log('Mensaje de alerta:', newValue)
-        }
-    })
-
+const dats = ref([]);
+const showError = ref(false);
 
     // conexion a la base de datos
     // conexion a la base de datos
@@ -40,6 +20,7 @@ const isLoading = ref(true);
             }),
         });
         if (response.ok) {
+            showError.value = true;
             dats.value = await response.json();
             console.log(response);
             mostrarMensaje('Datos cargados correctamente', 'green');
@@ -69,73 +50,89 @@ onMounted(() => {
     </div>
     <div v-else>
         <main>
-            <!-- seccion del presentacion, imagen logo y texto -->
-            <section class="container-logo flex" v-for="(title,index) in dats" :key="index">
-                <article>
-                    <img src="../image/chubby/ChubbyDeliberyNetwork (CDN).png" alt="logo empresa">
-                </article>
-                <article>
-                    <h1> {{ title.home[0].imageTitle }} </h1>
-                    <p> {{ title.home[0].textTitle }} </p>
-                </article>
-            </section>
+            <div v-if="showError">
+                <!-- seccion del presentacion, imagen logo y texto -->
+                <section class="container-logo flex" v-for="(title,index) in dats" :key="index">
+                    <article>
+                        <img src="../image/chubby/ChubbyDeliberyNetwork (CDN).png" alt="logo empresa">
+                    </article>
+                    <article>
+                        <h1> {{ title.home[0].imageTitle }} </h1>
+                        <p> {{ title.home[0].textTitle }} </p>
+                    </article>
+                </section>
 
-            <!-- segunda seccion de datos y contenido con imagenes -->
-            <section v-for="(item,html) in dats" :key="html">
-                <h2 class="title-section"> {{ item.titles[0].title1 }} </h2>
-            </section>
-            <!-- seccion de cards para datos de la empresa -->
-            <section class="flex container-cadsDinamic" v-for="(item,html) in dats" :key="html">
-                <article v-for="(info,html) in item.cards" :key="html">
-                    <div class="card">
-                        <div class="content flex">
-                            <img :src="info.imageCard" alt="">
-                            <p class="para"> {{ info.textCard }} </p>
-                        </div>
-                    </div>
-                </article>
-            </section>
-
-            <!-- titulo 3 -->
-            <section v-for="(item,html) in dats" :key="html">
-                <h2 class="title-section"> {{ item.titles[0].title2 }} </h2>
-            </section>
-            <section class="container-image-info" >
-                <article class="flex">
-                    <div class="card-infoCloud">
-                        <div class="tools">
-                            <div class="circle-cloud">
-                                <span class="red box"></span>
-                                <span class="yellow box"></span>
-                                <span class="green box"></span>
+                <!-- segunda seccion de datos y contenido con imagenes -->
+                <section v-for="(item,html) in dats" :key="html">
+                    <h2 class="title-section"> {{ item.titles[0].title1 }} </h2>
+                </section>
+                <!-- seccion de cards para datos de la empresa -->
+                <section class="flex container-cadsDinamic" v-for="(item,html) in dats" :key="html">
+                    <article v-for="(info,html) in item.cards" :key="html">
+                        <div class="card">
+                            <div class="content flex">
+                                <img :src="info.imageCard" alt="">
+                                <p class="para"> {{ info.textCard }} </p>
                             </div>
                         </div>
-                        <div class="card__content">
-                            <ul v-for="(info,index) in dats[0].information.container1" :key="index">
-                                <li> {{ info.itemText }} </li>
-                            </ul>
-                        </div>
-                    </div>
-                </article>
-                <article class="flex">
-                    <div class="card-infoCloud">
-                        <div class="tools">
-                            <div class="circle-cloud">
-                                <span class="red box"></span>
-                                <span class="yellow box"></span>
-                                <span class="green box"></span>
+                    </article>
+                </section>
+
+                <!-- titulo 3 -->
+                <section v-for="(item,html) in dats" :key="html">
+                    <h2 class="title-section"> {{ item.titles[0].title2 }} </h2>
+                </section>
+                <section class="container-image-info" >
+                    <article class="flex">
+                        <div class="card-infoCloud">
+                            <div class="tools">
+                                <div class="circle-cloud">
+                                    <span class="red box"></span>
+                                    <span class="yellow box"></span>
+                                    <span class="green box"></span>
+                                </div>
+                            </div>
+                            <div class="card__content">
+                                <ul v-for="(info,index) in dats[0].information.container1" :key="index">
+                                    <li> {{ info.itemText }} </li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="card__content">
-                            <ul v-for="(info,index) in dats[0].information.container2" :key="index">
-                                <li> {{ info.itemText }} </li>
-                            </ul>
+                    </article>
+                    <article class="flex">
+                        <div class="card-infoCloud">
+                            <div class="tools">
+                                <div class="circle-cloud">
+                                    <span class="red box"></span>
+                                    <span class="yellow box"></span>
+                                    <span class="green box"></span>
+                                </div>
+                            </div>
+                            <div class="card__content">
+                                <ul v-for="(info,index) in dats[0].information.container2" :key="index">
+                                    <li> {{ info.itemText }} </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </article>
-            </section>
+                    </article>
+                </section>
+            </div>
+            <!-- pantalla de error -->
+            <!-- pantalla de error -->
+            <div v-else >
+                <!-- seccion de error en pantalla -->
+                <!-- seccion de error en pantalla -->
+                <section class="messageError">
+                    <article>
+                        <img src="../image/icons/Recurso 10SIN FONDO.png" alt="">
+                    </article>
+                    <article>
+                        <h2>Oops! This page couldn’t be displayed</h2>
+                        <p>It seems something went wrong. Please try refreshing the page, or come back later.</p>
+                    </article>
+                </section>
+            </div> 
         </main>
-        <div div v-if="mensajeDeAlerta" class="alert">{{ mensajeDeAlerta }}</div>
     </div>
 </template>
 
@@ -159,6 +156,31 @@ onMounted(() => {
     border-radius: 5px;
     background-color: #fff;
     color: #000;
+}
+
+
+/* mensaje de error en pantalla */
+/* mensaje de error en pantalla */
+.messageError{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    & article{
+        text-align: center;
+        img{
+            max-width: 80%;
+        }
+        h2{
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 1rem;
+        }
+        p{
+            font-size: 1rem;
+            margin: 1rem;
+        }
+    }
 }
 
 /* seccion del main, logo y titulo */
