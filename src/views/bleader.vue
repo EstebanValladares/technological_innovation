@@ -80,7 +80,9 @@
             
             <!-- segunda seccion de datos y contenido con imagenes -->
             <!-- segunda seccion de datos y contenido con imagenes -->
-            <h2 class="title-section">Servicio de construcción automático de sistemas e-salud para el manejo de datos y contenidos en la práctica médica</h2>
+            <section v-for="(item, index) in dats" :key="index">
+                <h2 class="title-section"> {{ item.titles[0].title1 }} </h2>
+            </section>
             <!-- seccion de cards para datos de la empresa -->
             <section class="flex container-cadsDinamic">
                 <article v-for="(item, index) in dats" :key="index">
@@ -96,7 +98,9 @@
             <!-- tercera seccion -->
             <!-- tercera seccion -->
             <!-- titulo 3 -->
-            <h2 class="title-section">Sistema de e-salud</h2>
+            <section v-for="(item, index) in dats" :key="index">
+                <h2 class="title-section"> {{ item.titles[0].title2 }} </h2>
+            </section>
             <!-- seccion de imagenes informativas -->
             <section class="container-image-info" v-for="(item, index) in dats" :key="index">
                 <article class="flex" v-for="(info, index) in item.information" :key="index">

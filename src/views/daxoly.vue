@@ -1,24 +1,60 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import Loading from '../components/loader.vue';
+import { ref, onMounted, watch } from 'vue';
+import Loading from '../components/loader.vue';//daxolyData
 
-const isLoading = ref(true);
-const dats = ref([]);
+    const isLoading = ref(true);
+    const dats = ref([]);
 
-async function getData(){
-    try{
-        const response = await fetch('http://127.0.0.1:5000/daxolyData')
-        if(response.ok){
-            dats.value = await response.json()
-        }else{
-            console.log('error', response.statusText)
+    const mensajeDeAlerta = ref('');
+    const colorMensaje = ref('');
+
+    // Función para establecer el mensaje de alerta
+    const mostrarMensaje = (mensaje, color) => {
+        mensajeDeAlerta.value = mensaje;
+        colorMensaje.value = color;
+        setTimeout(() => {
+            mensajeDeAlerta.value = ''; // Borra el mensaje después de unos segundos
+            colorMensaje.value = ''; // Resetea el color
+        }, 8000); // Ajusta el tiempo según tus necesidades
+    };
+
+    // Watch para observar cambios en mensajeDeAlerta
+    watch(mensajeDeAlerta, (newValue) => {
+        if (newValue) {
+            console.log('Mensaje de alerta:', newValue)
         }
-    } catch(error){
-        console.log('error', error)
+    })
+
+
+    // conexion a la base de datos
+    // conexion a la base de datos
+    async function getData() {
+    try {
+        const response = await fetch('http://127.0.0.1:5000/daxolyData', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "home.imageTitle": "DAXOLY"
+            }),
+        });
+        if (response.ok) {
+            dats.value = await response.json();
+            console.log(response);
+            mostrarMensaje('Datos cargados correctamente', 'green');
+        } else {
+            console.log('error', response.statusText);
+            mostrarMensaje('Error al cargar datos', 'red');
+        }
+        } catch (error) {
+            console.log('error', error);
+            mostrarMensaje(`Error: ${error.message}`, 'red');
+        }
     }
-}
 
 onMounted(() => {
+    getData();
     setTimeout(() => {
         isLoading.value = false;
     }, 3000);
@@ -45,7 +81,9 @@ onMounted(() => {
             </section>
 
             <!-- segunda seccion de datos y contenido con imagenes -->
-            <h2 class="title-section">Comunicacion en su entorno</h2>
+            <section v-for="(title,index) in dats" :key="index">
+                <h2 class="title-section"> {{ title.titles[0].title1 }} </h2>
+            </section>
             <!-- seccion de cards para datos de la empresa -->
             <section class="flex container-cadsDinamic" v-for="(item,html) in dats" :key="html">
                 <article v-for="(info,html) in item.cards" :key="html">
@@ -58,27 +96,10 @@ onMounted(() => {
                 </article>
             </section>
 
-            <!-- espacio que determinara si tiene informacion o es una imagen -->
-            <!-- espacio que determinara si tiene informacion o es una imagen -->
-
             <!-- titulo 3 -->
-            <h2 class="title-section">Gran seguridad para la comunidad</h2>
-            <!-- seccion de imagenes informativas -->
-            <!-- <section class="container-image-info">
-                <article class="flex">
-                    <h3>Maneja y comparte tus servicios de e-salud</h3>
-                    <div class="flex">
-                        <img src="../image/nez/servicios-salud1.png" alt="servicio de salud">
-                    </div>
-                </article>
-                <article class="flex">
-                    <h3>Sistema de e-salud inter institucional</h3>
-                    <div class="flex">
-                        <img src="../image/nez/sistema-esalud1.png" alt="sistema de salud">
-                    </div>
-                </article>
-            </section> -->
-
+            <section v-for="(title,index) in dats" :key="index">
+                <h2 class="title-section"> {{ title.titles[0].title2 }} </h2>
+            </section>
             <section class="container-image-info" >
                 <article class="flex">
                     <div class="card-infoCloud">
@@ -113,8 +134,8 @@ onMounted(() => {
                     </div>
                 </article>
             </section>
-
         </main>
+        <div div v-if="mensajeDeAlerta" class="alert">{{ mensajeDeAlerta }}</div>
     </div>
 </template>
 
@@ -124,6 +145,20 @@ onMounted(() => {
     display: flex;
     justify-content: center;
     align-items: center
+}
+
+/* estilos de mensaje de alerta */
+/* estilos de mensaje de alerta */
+.alert {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #000;
 }
 
 /* seccion del main, logo y titulo */

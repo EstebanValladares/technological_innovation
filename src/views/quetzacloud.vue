@@ -1,24 +1,60 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import Loading from '../components/loader.vue';
+import { ref, onMounted, watch } from 'vue';
+import Loading from '../components/loader.vue'; //quetzacloudData
 
 const isLoading = ref(true);
-const dats = ref([]);
+    const dats = ref([]);
 
-async function getData(){
-    try{
-        const response = await fetch('http://127.0.0.1:5000/quetzacloudData')
-        if(response.ok){
-            dats.value = await response.json()
-        }else{
-            console.log('error', response.statusText)
+    const mensajeDeAlerta = ref('');
+    const colorMensaje = ref('');
+
+    // Función para establecer el mensaje de alerta
+    const mostrarMensaje = (mensaje, color) => {
+        mensajeDeAlerta.value = mensaje;
+        colorMensaje.value = color;
+        setTimeout(() => {
+            mensajeDeAlerta.value = ''; // Borra el mensaje después de unos segundos
+            colorMensaje.value = ''; // Resetea el color
+        }, 8000); // Ajusta el tiempo según tus necesidades
+    };
+
+    // Watch para observar cambios en mensajeDeAlerta
+    watch(mensajeDeAlerta, (newValue) => {
+        if (newValue) {
+            console.log('Mensaje de alerta:', newValue)
         }
-    } catch(error){
-        console.log('error', error)
+    })
+
+
+    // conexion a la base de datos
+    // conexion a la base de datos
+    async function getData() {
+    try {
+        const response = await fetch('http://127.0.0.1:5000/quetzacloudData', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "home.imageTitle": "QUETZACLOUD"
+            }),
+        });
+        if (response.ok) {
+            dats.value = await response.json();
+            console.log(response);
+            mostrarMensaje('Datos cargados correctamente', 'green');
+        } else {
+            console.log('error', response.statusText);
+            mostrarMensaje('Error al cargar datos', 'red');
+        }
+        } catch (error) {
+            console.log('error', error);
+            mostrarMensaje(`Error: ${error.message}`, 'red');
+        }
     }
-}
 
 onMounted(() => {
+    getData();
     setTimeout(() => {
         isLoading.value = false;
     }, 3000);
@@ -28,89 +64,80 @@ onMounted(() => {
 </script>
 
 <template>
-    <main>
+    <div v-if="isLoading">
+        <Loading></Loading>
+    </div>
+    <div v-else>
+        <main>
             <!-- seccion del presentacion, imagen logo y texto -->
-        <section class="container-logo flex" v-for="(title,index) in dats" :key="index">
-            <article>
-                <img src="../image/quetzacloud/quetzacloud.png" alt="logo empresa">
-            </article>
-            <article>
-                <h1> {{ title.home[0].imageTitle }} </h1>
-                <p> {{ title.home[0].textTitle }} </p>
-            </article>
-        </section>
+            <section class="container-logo flex" v-for="(title,index) in dats" :key="index">
+                <article>
+                    <img src="../image/quetzacloud/quetzacloud.png" alt="logo empresa">
+                </article>
+                <article>
+                    <h1> {{ title.home[0].imageTitle }} </h1>
+                    <p> {{ title.home[0].textTitle }} </p>
+                </article>
+            </section>
 
-        <!-- segunda seccion de datos y contenido con imagenes -->
-        <h2 class="title-section">Comunicacion en su entorno</h2>
-        <!-- seccion de cards para datos de la empresa -->
-        <section class="flex container-cadsDinamic" v-for="(item,html) in dats" :key="html">
-            <article v-for="(info,html) in item.cards" :key="html">
-                <div class="card">
-                    <div class="content flex">
-                        <img :src="info.imageCard" alt="">
-                        <p class="para"> {{ info.textCard }} </p>
-                    </div>
-                </div>
-            </article>
-        </section>
-
-        <!-- espacio que determinara si tiene informacion o es una imagen -->
-        <!-- espacio que determinara si tiene informacion o es una imagen -->
-
-        <!-- titulo 3 -->
-        <h2 class="title-section">Gran seguridad para la comunidad</h2>
-        <!-- seccion de imagenes informativas -->
-        <!-- <section class="container-image-info">
-            <article class="flex">
-                <h3>Maneja y comparte tus servicios de e-salud</h3>
-                <div class="flex">
-                    <img src="../image/nez/servicios-salud1.png" alt="servicio de salud">
-                </div>
-            </article>
-            <article class="flex">
-                <h3>Sistema de e-salud inter institucional</h3>
-                <div class="flex">
-                    <img src="../image/nez/sistema-esalud1.png" alt="sistema de salud">
-                </div>
-            </article>
-        </section> -->
-
-        <section class="container-image-info" >
-            <article class="flex">
-                <div class="card-infoCloud">
-                    <div class="tools">
-                        <div class="circle-cloud">
-                            <span class="red box"></span>
-                            <span class="yellow box"></span>
-                            <span class="green box"></span>
+            <!-- segunda seccion de datos y contenido con imagenes -->
+            <section v-for="(title,index) in dats" :key="index">
+                <h2 class="title-section"> {{ title.titles[0].title1 }} </h2>
+            </section>
+            <!-- seccion de cards para datos de la empresa -->
+            <section class="flex container-cadsDinamic" v-for="(item,html) in dats" :key="html">
+                <article v-for="(info,html) in item.cards" :key="html">
+                    <div class="card">
+                        <div class="content flex">
+                            <img :src="info.imageCard" alt="">
+                            <p class="para"> {{ info.textCard }} </p>
                         </div>
                     </div>
-                    <div class="card__content">
-                        <ul v-for="(info,index) in dats[0].information.container1" :key="index">
-                            <li> {{ info.itemText }} </li>
-                        </ul>
-                    </div>
-                </div>
-            </article>
-            <article class="flex">
-                <div class="card-infoCloud">
-                    <div class="tools">
-                        <div class="circle-cloud">
-                            <span class="red box"></span>
-                            <span class="yellow box"></span>
-                            <span class="green box"></span>
+                </article>
+            </section>
+
+            <!-- titulo 3 -->
+            <!-- titulo 3 -->
+            <section v-for="(title,index) in dats" :key="index">
+                <h2 class="title-section"> {{ title.titles[0].title2 }} </h2>
+            </section>
+            <section class="container-image-info" >
+                <article class="flex">
+                    <div class="card-infoCloud">
+                        <div class="tools">
+                            <div class="circle-cloud">
+                                <span class="red box"></span>
+                                <span class="yellow box"></span>
+                                <span class="green box"></span>
+                            </div>
+                        </div>
+                        <div class="card__content">
+                            <ul v-for="(info,index) in dats[0].information.container1" :key="index">
+                                <li> {{ info.itemText }} </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="card__content">
-                        <ul v-for="(info,index) in dats[0].information.container2" :key="index">
-                            <li> {{ info.itemText }} </li>
-                        </ul>
+                </article>
+                <article class="flex">
+                    <div class="card-infoCloud">
+                        <div class="tools">
+                            <div class="circle-cloud">
+                                <span class="red box"></span>
+                                <span class="yellow box"></span>
+                                <span class="green box"></span>
+                            </div>
+                        </div>
+                        <div class="card__content">
+                            <ul v-for="(info,index) in dats[0].information.container2" :key="index">
+                                <li> {{ info.itemText }} </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </article>
-        </section>
-
-    </main>
+                </article>
+            </section>
+        </main>
+        <div div v-if="mensajeDeAlerta" class="alert">{{ mensajeDeAlerta }}</div>
+    </div>
 </template>
 
 <style scoped>
@@ -119,6 +146,20 @@ onMounted(() => {
     display: flex;
     justify-content: center;
     align-items: center
+}
+
+/* estilos de mensaje de alerta */
+/* estilos de mensaje de alerta */
+.alert {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #000;
 }
 
 /* seccion del main, logo y titulo */
