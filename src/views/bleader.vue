@@ -8,6 +8,8 @@
     const mensajeDeAlerta = ref('');
     const colorMensaje = ref('');
 
+    const errorData = ref(true);
+
     // Función para establecer el mensaje de alerta
     const mostrarMensaje = (mensaje, color) => {
         mensajeDeAlerta.value = mensaje;
@@ -43,14 +45,16 @@
             dats.value = await response.json();
             console.log(response);
             mostrarMensaje('Datos cargados correctamente', 'green');
+            errorData.value = false;
         } else {
             console.log('error', response.statusText);
             mostrarMensaje('Error al cargar datos', 'red');
+            errorData.value = true;
         }
-        } catch (error) {
-            console.log('error', error);
-            mostrarMensaje(`Error: ${error.message}`, 'red');
-        }
+    } catch (error) {
+        console.log('error', error);
+        mostrarMensaje(`Error: ${error.message}`, 'red');
+     }
     }
     
     onMounted(() => {
@@ -67,57 +71,75 @@
     </div>
     <div v-else>
         <main>
-            <!-- seccion del presentacion, imagen logo y texto -->
-            <section class="container-logo flex" v-for="(item, index) in dats" :key="index">
-                <article>
-                    <img src="../image/nez/BeaverBuilder.png" alt="logo empresa">
-                </article>
-                <article>
-                    <h1> {{ item.home.textHome.title }} </h1>
-                    <p> {{ item.home.textHome.text }} </p>
-                </article>
-            </section>
-            
-            <!-- segunda seccion de datos y contenido con imagenes -->
-            <!-- segunda seccion de datos y contenido con imagenes -->
-            <section v-for="(item, index) in dats" :key="index">
-                <h2 class="title-section"> {{ item.titles[0].title1 }} </h2>
-            </section>
-            <!-- seccion de cards para datos de la empresa -->
-            <section class="flex container-cadsDinamic">
-                <article v-for="(item, index) in dats" :key="index">
-                    <div class="card" v-for="(card, cardIndex) in item.cards" :key="cardIndex">
-                        <div class="content flex">
-                            <img :src="card.src" alt="">
-                            <p class="para"> {{ card.description }} </p>
+
+            <div v-if="errorData">
+                <!-- seccion de error en pantalla -->
+                <!-- seccion de error en pantalla -->
+                <section class="messageError">
+                    <article>
+                        <img src="../image/icons/Recurso 10SIN FONDO.png" alt="">
+                    </article>
+                    <article>
+                        <h2>Oops! This page couldn’t be displayed</h2>
+                        <p>It seems something went wrong. Please try refreshing the page, or come back later.</p>
+                    </article>
+                </section>
+            </div>
+
+            <div v-else>
+                <!-- seccion del presentacion, imagen logo y texto -->
+                <section class="container-logo flex" v-for="(item, index) in dats" :key="index">
+                    <article>
+                        <img src="../image/nez/BeaverBuilder.png" alt="logo empresa">
+                    </article>
+                    <article>
+                        <h1> {{ item.home.textHome.title }} </h1>
+                        <p> {{ item.home.textHome.text }} </p>
+                    </article>
+                </section>
+                
+                <!-- segunda seccion de datos y contenido con imagenes -->
+                <!-- segunda seccion de datos y contenido con imagenes -->
+                <section v-for="(item, index) in dats" :key="index">
+                    <h2 class="title-section"> {{ item.titles[0].title1 }} </h2>
+                </section>
+                <!-- seccion de cards para datos de la empresa -->
+                <section class="flex container-cadsDinamic">
+                    <article v-for="(item, index) in dats" :key="index">
+                        <div class="card" v-for="(card, cardIndex) in item.cards" :key="cardIndex">
+                            <div class="content flex">
+                                <img :src="card.src" alt="">
+                                <p class="para"> {{ card.description }} </p>
+                            </div>
                         </div>
-                    </div>
-                </article>
-            </section>
+                    </article>
+                </section>
+                
+                <!-- tercera seccion -->
+                <!-- tercera seccion -->
+                <!-- titulo 3 -->
+                <section v-for="(item, index) in dats" :key="index">
+                    <h2 class="title-section"> {{ item.titles[0].title2 }} </h2>
+                </section>
+                <!-- seccion de imagenes informativas -->
+                <section class="container-image-info" v-for="(item, index) in dats" :key="index">
+                    <article class="flex" v-for="(info, index) in item.information" :key="index">
+                        <h3>Maneja y comparte tus servicios de e-salud</h3>
+                        <div class="flex">
+                            <img :src="info.src" alt="servicio de salud">
+                        </div>
+                    </article>
+                    <!-- <article class="flex">
+                        <h3>Sistema de e-salud inter institucional</h3>
+                        <div class="flex">
+                            <img src="../image/nez/sistema-esalud1.png" alt="sistema de salud">
+                        </div>
+                    </article> -->
+                </section>
+            </div>
             
-            <!-- tercera seccion -->
-            <!-- tercera seccion -->
-            <!-- titulo 3 -->
-            <section v-for="(item, index) in dats" :key="index">
-                <h2 class="title-section"> {{ item.titles[0].title2 }} </h2>
-            </section>
-            <!-- seccion de imagenes informativas -->
-            <section class="container-image-info" v-for="(item, index) in dats" :key="index">
-                <article class="flex" v-for="(info, index) in item.information" :key="index">
-                    <h3>Maneja y comparte tus servicios de e-salud</h3>
-                    <div class="flex">
-                        <img :src="info.src" alt="servicio de salud">
-                    </div>
-                </article>
-                <!-- <article class="flex">
-                    <h3>Sistema de e-salud inter institucional</h3>
-                    <div class="flex">
-                        <img src="../image/nez/sistema-esalud1.png" alt="sistema de salud">
-                    </div>
-                </article> -->
-            </section>
-            <!-- Mensaje de alerta -->
         </main>
+        <!-- Mensaje de alerta -->
         <div div v-if="mensajeDeAlerta" class="alert">{{ mensajeDeAlerta }}</div>
     </div>
 </template>
@@ -143,6 +165,31 @@
     border-radius: 5px;
     background-color: #fff;
     color: #000;
+}
+
+
+/* mensaje de error en pantalla */
+/* mensaje de error en pantalla */
+.messageError{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    & article{
+        text-align: center;
+        img{
+            max-width: 80%;
+        }
+        h2{
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 1rem;
+        }
+        p{
+            font-size: 1rem;
+            margin: 1rem;
+        }
+    }
 }
 
 /* seccion del main, logo y titulo */
