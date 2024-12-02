@@ -60,7 +60,7 @@ def SelectService(collection_name):
         
         #devuelve la respuesta que tenga guardada
         #devuelve la respuesta que tenga guardada
-        logger.log_info('Respuesta del servidor exitosa!')
+        logger.log_info(f'Respuesta del servidor exitosa!: {collection_name}')
         return jsonify(data_list)
 
     #manejo de errores
@@ -86,6 +86,6 @@ def insert(collection_name):
         return jsonify({"error": str(e)}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
 
 

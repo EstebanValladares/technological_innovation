@@ -67,9 +67,25 @@ cd mistix
 cd python && python app.py
 
 ```
-<!-- ejecucion de volumen en docker -->
+### ejecucion de volumen en docker compose
+
+```sh
+docker-compose up -d
 
 ```
-docker-compose up -d
+### creacion de contenedor
+
+```sh
+docker build -t loggermistix .
+
+### url puerto en uso: http://127.0.0.1:5000
+
+```
+### ejecucion de volumen en docker contenedor
+
+```sh
+docker run -p 5000:5000 loggermistix
+
+### url puerto en uso: http://127.0.0.1:5000
 
 ```
